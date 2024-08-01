@@ -14,10 +14,10 @@ public class SecurityController {
         return "login";
     }
 
-//    @GetMapping(value = "/logoutSuccessful")
-//    public String logoutSuccessfulPage(Model model) {
-//        model.addAttribute("title", "Logout");
-//        return "logoutSuccessfulPage";
-//    }
+    @GetMapping(value = "/logoutSuccessful")
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "login";
+    }
 
 }
