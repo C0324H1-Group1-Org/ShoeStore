@@ -42,8 +42,4 @@ public class UserController {
         return "thankyou";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 }

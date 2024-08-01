@@ -32,7 +32,7 @@
         }
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="../css/magnific-popup.css">
     <link rel="stylesheet" href="../css/jquery-ui.css">
@@ -49,31 +49,35 @@
 </video>
 <div class="container w-50">
     <div class="shadow-lg p-4 rounded form-login">
-        <h2 class="text-center text-black">Đăng nhập</h2>
-        <div class="mt-3">
-            <div class="form-floating mb-3 ">
-                <input type="email" class="form-control form-control-sm" id="floatingInput" placeholder="Tên đăng nhập">
+        <p th:if="${error == true}">Lỗi đăng nhập</p>
+        <form action="/login" method="post">
+            <h2 class="text-center text-black">Đăng nhập</h2>
+            <div class="mt-3">
+                <div class="form-floating mb-3 ">
+                    <input type="email" name="username" class="form-control form-control-sm" id="floatingInput"
+                           placeholder="Tên đăng nhập" th:value="${username}">
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="password" class="form-control form-control-sm" id="floatingPassword"
+                           placeholder="Mật khẩu" th:value="${password}">
+                </div>
             </div>
-            <div class="form-floating">
-                <input type="password" class="form-control form-control-sm" id="floatingPassword"
-                       placeholder="Mật khẩu">
-
+            <div class="mt-3 d-flex justify-content-between">
+                <div class="form-check">
+                    <input class="form-check-input" style="width: 20px; margin-top: 7px" type="checkbox" value=""
+                           id="flexCheckDefault">
+                    <label class="form-check-label text-black" for="flexCheckDefault">
+                        Lưu mật khẩu
+                    </label>
+                </div>
+                <div class="forgot-password">
+                    <a href="">Quên mật khẩu?</a>
+                </div>
             </div>
-        </div>
-        <div class="mt-3 d-flex justify-content-between">
-            <div class="form-check">
-                <input class="form-check-input" style="width: 20px; margin-top: 7px" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label text-black" for="flexCheckDefault">
-                    Lưu mật khẩu
-                </label>
+            <div class="mt-3 d-flex justify-content-center">
+                <button class="btn btn-sm btn-primary">Đăng nhập</button>
             </div>
-            <div class="forgot-password">
-                <a href="">Quên mật khẩu?</a>
-            </div>
-        </div>
-        <div class="mt-3 d-flex justify-content-center">
-            <button class="btn btn-sm btn-primary" >Đăng nhập</button>
-        </div>
+        </form>
     </div>
 </div>
 <script src="../js/jquery-3.3.1.min.js"></script>
