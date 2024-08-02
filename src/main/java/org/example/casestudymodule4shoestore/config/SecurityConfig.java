@@ -46,6 +46,7 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/shop", "/login", "/about", "/contact", "/register", "/index", "cart", "checkout", "thankyou").permitAll()
                                 .requestMatchers("/css/**", "/js/**", "/images/**", "/scss/**", "/fonts/**").permitAll())
+
 //                Config các đường dẫn bắt buộc cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
