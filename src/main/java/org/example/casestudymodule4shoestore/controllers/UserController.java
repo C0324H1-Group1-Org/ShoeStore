@@ -17,11 +17,6 @@ public class UserController {
         return "shop";
     }
 
-    @GetMapping("/detail")
-    public String detail(){
-        return "detail";
-    }
-
     @GetMapping("/cart")
     public String cart(){
         return "cart";
@@ -47,4 +42,8 @@ public class UserController {
         return "thankyou";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
