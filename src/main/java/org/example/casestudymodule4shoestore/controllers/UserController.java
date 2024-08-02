@@ -21,12 +21,14 @@ public class UserController {
     private IProductService productService;
 
     @GetMapping
-    public String home(){
+    public String home(Model model){
+        model.addAttribute("navbar", "index");
         return "index";
     }
 
     @GetMapping("/shop")
-    public String shop(){
+    public String shop(Model model){
+        model.addAttribute("navbar", "shop");
         return "shop";
     }
 
@@ -41,12 +43,15 @@ public class UserController {
     }
 
     @GetMapping("/about")
-    public String about(){
+    public String about(Model model){
+        model.addAttribute("navbar", "about");
+
         return "about";
     }
 
     @GetMapping("/contact")
-    public String contact(){
+    public String contact(Model model ){
+        model.addAttribute("navbar", "contact");
         return "contact";
     }
 
