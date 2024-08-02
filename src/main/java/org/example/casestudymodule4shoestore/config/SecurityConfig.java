@@ -44,12 +44,13 @@ public class SecurityConfig {
 //                Config các đường dẫn không cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/**").permitAll()
-                                .requestMatchers("/css/**", "/js/**", "/images/**","/scss/**","/fonts/**").permitAll())
+                                .requestMatchers("/shop", "/login", "/about", "/contact", "/register", "/index", "cart", "checkout", "thankyou").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**", "/scss/**", "/fonts/**").permitAll())
+
 //                Config các đường dẫn bắt buộc cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers( "/logout").authenticated())
+                                .requestMatchers("/logout").authenticated())
 //               Cấu hình lại form login
                 .formLogin((formLogin) ->
                         formLogin
@@ -63,7 +64,13 @@ public class SecurityConfig {
                         logout.deleteCookies("remove")
                                 .invalidateHttpSession(false)
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/login"));
+                                .logoutSuccessUrl("/login"))
+                .rememberMe((remember) ->
+                        remember.rememberMeParameter("remember-me")
+                                .tokenValiditySeconds(60 * 60 * 24 * 365))
+                .exceptionHandling((exceptionHandling) ->
+                        exceptionHandling
+                                .accessDeniedPage("/403"));
         return http.build();
     }
 

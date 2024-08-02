@@ -1,10 +1,14 @@
 package org.example.casestudymodule4shoestore.models.login;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "app_user", //
         uniqueConstraints = { //
                 @UniqueConstraint(name = "APP_USER_UK", columnNames = "user_name") })

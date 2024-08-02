@@ -15,7 +15,6 @@ import java.util.Locale;
 
 @Configuration
 public class Config implements WebMvcConfigurer {
-
     @Bean
     public LocaleResolver localeResolver(){
 //        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
@@ -42,7 +41,7 @@ public class Config implements WebMvcConfigurer {
     public MessageSource messageSource(){
         ResourceBundleMessageSource bundleMessageSource = new ResourceBundleMessageSource();
         bundleMessageSource.setBasename("message");
-            bundleMessageSource.setDefaultEncoding("UTF-8");
+        bundleMessageSource.setDefaultEncoding("UTF-8");
         return bundleMessageSource;
     }
 }
