@@ -72,8 +72,8 @@
                             <div class="col-4 pe-0"
                                  th:each="gender : ${T(org.example.casestudymodule4shoestore.models.Gender).values()}">
                                 <div class=" d-flex justify-content-between select-gender">
-                                    <label class="bg-white border m-0 p-2 rounded text-align-center text-dark w-100"
-                                           for="gender" th:text="${gender}"></label>
+                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
+                                           for="gender" th:text="${gender}" style="padding-left: 11px; color: rgba(65,65,65, 70%)"></label>
                                     <input class="form-check-input m-3 position-absolute w-100" type="radio" id="gender"
                                            name="gender"
                                            th:value="${gender}" th:field="*{gender}">
