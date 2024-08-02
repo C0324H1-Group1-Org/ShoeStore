@@ -1,4 +1,4 @@
-package org.example.casestudymodule4shoestore.models.login;
+package org.example.casestudymodule4shoestore.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

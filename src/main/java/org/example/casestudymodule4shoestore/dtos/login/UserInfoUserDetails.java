@@ -1,7 +1,7 @@
 package org.example.casestudymodule4shoestore.dtos.login;
 
-import org.example.casestudymodule4shoestore.models.login.AppUser;
-import org.example.casestudymodule4shoestore.models.login.UserRole;
+import org.example.casestudymodule4shoestore.models.AppUser;
+import org.example.casestudymodule4shoestore.models.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

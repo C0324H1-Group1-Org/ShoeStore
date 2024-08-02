@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "product_size", schema = "module4_casestudy_shoe_store")
+@Table(name = "product_size")
 public class ProductSize {
     @EmbeddedId
     private ProductSizeId id;

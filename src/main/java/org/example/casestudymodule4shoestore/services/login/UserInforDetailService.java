@@ -1,8 +1,8 @@
 package org.example.casestudymodule4shoestore.services.login;
 
 import org.example.casestudymodule4shoestore.dtos.login.UserInfoUserDetails;
-import org.example.casestudymodule4shoestore.models.login.AppUser;
-import org.example.casestudymodule4shoestore.models.login.UserRole;
+import org.example.casestudymodule4shoestore.models.AppUser;
+import org.example.casestudymodule4shoestore.models.UserRole;
 import org.example.casestudymodule4shoestore.repositories.login.IUserRepository;
 import org.example.casestudymodule4shoestore.repositories.login.IUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

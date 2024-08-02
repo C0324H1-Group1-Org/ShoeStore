@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Đăng ký tài khoản</title>
     <style>
         video {
             position: fixed;
@@ -48,38 +48,93 @@
     <source src="https://videos.pexels.com/video-files/8116703/8116703-sd_960_506_24fps.mp4" type="video/mp4">
 </video>
 <div class="container w-50">
-    <form action="/register" th:object="${userDto}" method="POST">
-        <div class="shadow-lg p-4 rounded form-login">
-            <h2 class="text-center text-black">Đăng ký</h2>
-            <div class="mt-3">
-                <div class="form-floating mb-3 ">
-                    <input type="email" class="form-control"
-                           th:classappend="${isSubmitted} ? ${#fields.hasErrors('name') ? 'is-invalid' : 'is-valid'} : ''"
-                           id="name" required th:field="*{name}" placeholder="Tài khoản đăng ký">
-                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
-                        <span th:errors="*{name}"></span>
-                    </div>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control"
-                           th:classappend="${isSubmitted} ? ${#fields.hasErrors('password') ? 'is-invalid' : 'is-valid'} : ''"
-                           id="password" required th:field="*{password}" placeholder="Mật khẩu mới">
-                    <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback">
-                        <span th:errors="*{password}"></span>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-danger" th:text="${registrationError}"></p>
-                </div>
-                <div class="mt-3 d-flex justify-content-center login-account">
-                    <a th:href="@{/login}"> Đăng nhập bằng tài khoản có sẵn</a>
-                </div>
-            </div>
-            <div class="mt-3 d-flex justify-content-center">
-                <button type="submit" class="btn btn-sm btn-primary">Đăng ký</button>
-            </div>
+    <div class="shadow-lg rounded form-login">
+        <div class=" border-bottom border-dark m-auto">
+            <h2 class="text-black m-0 px-3 pt-3">Đăng ký</h2>
+            <p class="mb-1 text-black px-3 small">Nhanh chóng và dễ dàng.</p>
         </div>
-    </form>
+        <div class="pt-0 px-3 pb-3">
+            <form th:action="@{/register}" th:object="${customerDto}" method="POST">
+                <div class="mt-3">
+                    <div class="row form-floating mb-2">
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="Họ" th:field="*{firstName}">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="Tên" th:field="*{lastName}">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p class="small text-dark m-0 mx-1">Giới tính</p>
+                        </div>
+                        <div class="row form-floating mb-3">
+                            <div class="col-4 pe-0"
+                                 th:each="gender : ${T(org.example.casestudymodule4shoestore.models.Gender).values()}">
+                                <div class=" d-flex justify-content-between select-gender">
+                                    <label class="bg-white border m-0 p-2 rounded text-align-center text-dark w-100"
+                                           for="gender" th:text="${gender}"></label>
+                                    <input class="form-check-input m-3 position-absolute w-100" type="radio" id="gender"
+                                           name="gender"
+                                           th:value="${gender}" th:field="*{gender}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 ">
+                        <input type="text" class="form-control"
+                               th:classappend="${isSubmitted} ? ${#fields.hasErrors('phone') ? 'is-invalid' : 'is-valid'} : ''"
+                               id="phone" th:field="*{phone}" placeholder="Số điện thoại">
+                        <div th:if="${#fields.hasErrors('phone')}" class="invalid-feedback">
+                            <span th:errors="*{phone}"></span>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 ">
+                        <input type="text" class="form-control"
+                               th:classappend="${isSubmitted} ? ${#fields.hasErrors('email') ? 'is-invalid' : 'is-valid'} : ''"
+                               id="email" th:field="*{email}" placeholder="Tài khoản đăng ký">
+                        <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
+                            <span th:errors="*{email}"></span>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control"
+                               th:classappend="${isSubmitted} ? ${#fields.hasErrors('password') ? 'is-invalid' : 'is-valid'} : ''"
+                               id="password" th:field="*{password}" placeholder="Mật khẩu mới">
+                        <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback">
+                            <span th:errors="*{password}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" class="form-control" name="confirmPassword" th:value="${confirmPassword}"
+                               placeholder="Nhập lại mật khẩu">
+                        <div>
+                            <span th:if="${checkPassword}" th:text="${checkPassword}"></span>
+                        </div>
+                    </div>
+                    <div class="small   mt-1">
+                        <ul class="small text-dark list-unstyled mx-2 mb-2">
+                            <li>Ít nhất một kí tự viết thường.</li>
+                            <li>Ít nhất một kí tự viết hoa.</li>
+                            <li>8-16 kí tự</li>
+                            <li>Chỉ các chữ cái, số và ký tự phổ biến mới có thể được sử dụng</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-danger" th:text="${registrationError}"></p>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center login-account">
+                        <a th:href="@{/login}"> Đăng nhập bằng tài khoản có sẵn</a>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-sm btn-primary">Đăng ký</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery-ui.js"></script>
