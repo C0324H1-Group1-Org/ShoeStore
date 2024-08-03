@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "orders", schema = "module4_casestudy_shoe_store")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +23,15 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Lob
-    @Column(name = "status")
-    private String status;
 
-    @Column(name = "orderDate")
-    private Instant orderDate;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
+
+    @Column(name = "order_date")
+    private Date orderDate;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItemList;
 
 }

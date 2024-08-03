@@ -5,10 +5,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "products", schema = "module4_casestudy_shoe_store")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +28,7 @@ public class Product {
     @Column(name = "image")
     private String image;
 
-    @Lob
-    @Column(name = "description")
+    @Column(name = "description",length = 10000)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,5 +38,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @OneToMany(mappedBy = "idProduct")
+    private List<ProductSize> productSizes;
 
 }
