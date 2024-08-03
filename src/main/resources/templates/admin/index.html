@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BURNING KEY Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="admin/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-btc" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">
+                            <h2>BURNING KEY</h2>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li><a href="admin/products">
+                    <span class="icon"><i class="fa fa-product-hunt" aria-hidden="true"></i></span>
+                    <span class="title">Product</span>
+                </a>
+                </li>
+                <li><a href="#">
+                        <!-- <span class="icon"><i class="fa fa-comment-o" aria-hidden="true"></i></span> -->
+                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                        <span class="title">Orders</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <span class="title">User</span>
+                </a>
+                </li>
+                <!-- <li><a href="#">
+                        <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                        <span class="title">Sign out</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle" onclick="toggleMenu()"></div>
+                <!-- <div class="user">
+                    <img src="user.jpeg">
+                </div> -->
+                <p>Chào, Admin</p>
+            </div>
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">1,042</div>
+                        <div class="cardName">Tổng số người dùng</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">80</div>
+                        <div class="cardName">Tổng số đơn hàng</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!-- <div class="card">
+                    <div>
+                        <div class="numbers">208</div>
+                        <div class="cardName">Comments</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fa fa-comment" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">6,042</div>
+                        <div class="cardName">Earning</div>
+                    </div>
+                    <div class="iconBox">
+                        <i class="fa fa-usd" aria-hidden="true"></i>
+                    </div>
+                </div> -->
+            </div>
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Đơn đặt hàng mới</h2>
+                        <a href="#" class="btn">Xem tất cả</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Mã đơn</td>
+                                <td>Tổng tiền</td>
+                                <td>Ngày giờ</td>
+                                <td>Trạng thái</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#" class="btn">1900</a></td>
+                                <td>$1200</td>
+                                <td>02-08-2024 10:00:00 AM</td>
+                                <td><span class="status delivered"> Đã giao hàng</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="btn">1901</a></td>
+                                <td>$110</td>
+                                <td>02-08-2024 10:00:00 AM</td>
+                                <td><span class="status Pending"> Đang chờ</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="btn">1902</a></td>
+                                <td>$620</td>
+                                <td>02-08-2024 10:00:00 AM</td>
+                                <td><span class="status return"> Hoàn trả</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="btn">1903</a></td>
+                                <td>$6000</td>
+                                <td>02-08-2024 10:00:00 AM</td>
+                                <td><span class="status inprogress"> Đang xử lý</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="btn">1904</a></td>
+                                <td>$680</td>
+                                <td>02-08-2024 10:00:00 AM</td>
+                                <td><span class="status delivered"> Đã giao hàng</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Người dùng mới</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <td width="60px"><div class="imgBx"><img src="../../../../../../../Downloads/Responsive-Admin-Dashboard-Without-External-Lib-main/images/01.jpg" alt=""></div></td>
+                            <td><h4>Dũng Lại Lập Trình<br><span>0709999999</span></h4></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function toggleMenu() {
+        let toggle = document.querySelector(".toggle");
+        let navigation = document.querySelector(".navigation");
+        let main = document.querySelector(".main");
+        toggle.classList.toggle("active");
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+    }
+</script>
+
+</html>

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "product_size", schema = "module4_casestudy_shoe_store")
+@Table(name = "product_size")
 public class ProductSize {
     @EmbeddedId
     private ProductSizeId id;
@@ -16,6 +16,11 @@ public class ProductSize {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_product", nullable = false)
     private Product idProduct;
+
+    @MapsId("idSize")
+    @ManyToOne
+    @JoinColumn(name = "id_size",nullable = false)
+    private Size idSize;
 
     @Column(name = "quantity")
     private Integer quantity;

@@ -41,15 +41,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-//                Config các đường dẫn không cần đăng nhập
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/**").permitAll())
+                                .requestMatchers("/logout").authenticated()
+                                .anyRequest().permitAll()
+                )
 
-//                Config các đường dẫn bắt buộc cần đăng nhập
-                .authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
-                                .requestMatchers("/logout").authenticated())
 //               Cấu hình lại form login
                 .formLogin((formLogin) ->
                         formLogin
