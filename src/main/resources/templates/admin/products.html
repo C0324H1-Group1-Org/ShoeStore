@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    
+    <title>Customer</title>
+    <style>
+        .details{
+            display: block;
+            margin-top: 10px;
+        }
+        .pagination {
+        display: inline-block;
+        margin-top: 10px;
+        }
+
+        .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        }
+
+        .pagination a.active {
+        background-color: #03a9f4;
+        color: white;
+        border-radius: 5px;
+        }
+
+        .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-btc" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">
+                            <h2>BURNING KEY</h2>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                    <span class="icon"><i class="fa fa-product-hunt" aria-hidden="true"></i></span>
+                    <span class="title">Product</span>
+                </a>
+                </li>
+                <li><a href="#">
+                        <!-- <span class="icon"><i class="fa fa-comment-o" aria-hidden="true"></i></span> -->
+                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                        <span class="title">Orders</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <span class="title">User</span>
+                </a>
+                </li>
+                <!-- <li><a href="#">
+                        <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                        <span class="title">Sign out</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle" onclick="toggleMenu()"></div>
+                
+                <div class="user">
+                    <img src="">
+                </div>
+            </div>
+            <div class="details">
+                <div class="recentOrders">
+                    <a href="#" class="btn">Thêm mới</a>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Mã sản phẩm</td>
+                                <td>Hình ảnh</td>
+                                <td>Tên</td>
+                                <td>Giá</td>
+                                <td>Mô tả</td>
+                                <td>Thể loại</td>
+                                <td>Hãng</td>
+                                <td>Kích cỡ</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1900</td>
+                                <td><img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/05856ac7-0129-4395-bd6e-2fe2669025fb/custom-nike-dunk-low-by-you-su24.png" alt="" style="width:100px"></td>
+                                <td>Nike Dunk Low By You Custom Shoes</td>
+                                <td>3.519.000</td>
+                                <td><a href="#" class="btn"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></td>
+                                <td>Sneaker</td>
+                                <td>Nike</td>
+                                <td><a href="#" class="btn">Danh sách</a></td>
+                                <td>
+                                <a href="#" class="btn Pending"><span class="icon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></a>
+                                <a href="#" class="btn return"><span class="icon"><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
