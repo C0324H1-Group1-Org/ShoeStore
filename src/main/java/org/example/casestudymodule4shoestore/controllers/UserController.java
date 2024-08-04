@@ -1,10 +1,8 @@
 package org.example.casestudymodule4shoestore.controllers;
 
-import org.example.casestudymodule4shoestore.dtos.productDTO.ProductDTO;
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.models.login.AppUser;
+import org.example.casestudymodule4shoestore.models.Size;
 import org.example.casestudymodule4shoestore.services.product.IProductService;
-import org.example.casestudymodule4shoestore.services.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,60 +20,56 @@ public class UserController {
     private IProductService productService;
 
     @GetMapping
-    public String home(Model model){
+    public String home(Model model) {
         model.addAttribute("navbar", "index");
         return "index";
     }
 
     @GetMapping("/shop")
-    public String shop(Model model){
+    public String shop(Model model) {
         model.addAttribute("navbar", "shop");
         return "shop";
     }
 
-    @GetMapping("/detail")
-    public String detail(){
-        return "detail";
-    }
-
     @GetMapping("/cart")
-    public String cart(){
+    public String cart() {
         return "cart";
     }
 
     @GetMapping("/about")
-    public String about(Model model){
+    public String about(Model model) {
         model.addAttribute("navbar", "about");
-
         return "about";
     }
 
     @GetMapping("/contact")
-    public String contact(Model model ){
+    public String contact(Model model) {
         model.addAttribute("navbar", "contact");
         return "contact";
     }
 
     @GetMapping("/checkout")
-    public String checkout(){
+    public String checkout() {
         return "checkout";
     }
 
     @GetMapping("/thankyou")
-    public String thankYou(){
+    public String thankYou() {
         return "thankyou";
     }
 
     @GetMapping("/detail/{id}")
     public String showProductDetail(@PathVariable("id") Long id, Model model) {
         Optional<Product> product = productService.findProductById(id);
+        List<Size> sizes = productService.findAllSize();
         if (product.isPresent()) {
-            model.addAttribute("product", product);
+            Product product1 = product.get();
+            model.addAttribute("product", product1);
+            model.addAttribute("sizes",sizes);
         } else {
             return "error/404";
         }
         return "detail";
     }
-
 
 }

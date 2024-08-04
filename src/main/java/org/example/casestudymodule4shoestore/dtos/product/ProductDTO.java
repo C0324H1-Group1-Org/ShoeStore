@@ -1,8 +1,10 @@
-package org.example.casestudymodule4shoestore.dtos.productDTO;
+package org.example.casestudymodule4shoestore.dtos.product;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.casestudymodule4shoestore.models.Size;
+import org.example.casestudymodule4shoestore.models.Brand;
+import org.example.casestudymodule4shoestore.models.Category;
+
 
 
 @Getter
@@ -13,7 +15,9 @@ public class ProductDTO {
     private String description;
     private String image;
     private Float price;
-    private Size size;
+    private Brand brand;
+    private Category category;
+
     public ProductDTO() {
     }
 
