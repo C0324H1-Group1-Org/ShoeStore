@@ -31,10 +31,7 @@ public class UserController {
         return "shop";
     }
 
-    @GetMapping("/cart")
-    public String cart() {
-        return "cart";
-    }
+
 
     @GetMapping("/about")
     public String about(Model model) {
