@@ -16,7 +16,7 @@ public class ProductService implements IGenerateService<Product> {
 
     @Override
     public List<Product> findAll() {
-        return List.of();
+        return productRepository.findAll();
     }
 
     @Override
