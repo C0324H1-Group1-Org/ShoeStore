@@ -127,7 +127,7 @@ body{
 }
 .search label .fa{
     position: absolute;
-    left: 15;
+    left: 15px;
     top: 1px;
 }
 .user{
@@ -303,6 +303,7 @@ line-height: 1.2em;
     color: #999;
 }
 
+
 /* now make it responsive */
 @media (max-width:992px){
     .navigation{
@@ -333,36 +334,43 @@ line-height: 1.2em;
         font-weight: 600;
     }
 }
-@media (max-width:480px){
-    .cardBox{
-        grid-template-columns: repeat(1,1fr);
+@media (max-width:480px) {
+    .cardBox {
+        grid-template-columns: repeat(1, 1fr);
     }
+
     .details .recentOrders {
-       overflow-x: auto;
+        overflow-x: auto;
     }
-    .details .recentOrders table{
+
+    .details .recentOrders table {
         width: 600px;
     }
-    .navigation{
+
+    .navigation {
         width: 100%;
         z-index: 1000;
         left: -100%;
     }
-    .navigation.active{
+
+    .navigation.active {
         width: 100%;
         left: 0;
     }
-    .toggle.active{
+
+    .toggle.active {
         position: fixed;
         z-index: 10000;
         right: 10px;
         left: initial;
     }
-    .toggle.active::before{
+
+    .toggle.active::before {
         color: #fff;
     }
+
     .main
-    main.active{
+    main.active {
         width: 100%;
         left: 0;
 
