@@ -1,8 +1,7 @@
 package org.example.casestudymodule4shoestore.controllers;
 
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.models.Size;
-import org.example.casestudymodule4shoestore.services.product.IProductService;
+import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/")
 public class UserController {
     @Autowired
-    private IProductService productService;
+    private IGenerateService productService;
 
     @GetMapping
     public String home(Model model) {
@@ -61,11 +60,10 @@ public class UserController {
     @GetMapping("/detail/{id}")
     public String showProductDetail(@PathVariable("id") Long id, Model model) {
         Optional<Product> product = productService.findProductById(id);
-        List<Size> sizes = productService.findAllSize();
+
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
-            model.addAttribute("sizes",sizes);
         } else {
             return "error/404";
         }

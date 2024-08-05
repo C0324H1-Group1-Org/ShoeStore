@@ -58,7 +58,6 @@ public class CartController {
             e.printStackTrace();
         }
 
-        redirectAttributes.addFlashAttribute("product", product);
-        return "redirect:/detail/{id}";
+        return "redirect:/detail/{id}" + product.getId();
     }
 }
