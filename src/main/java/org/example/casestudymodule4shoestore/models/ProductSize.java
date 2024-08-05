@@ -17,6 +17,11 @@ public class ProductSize {
     @JoinColumn(name = "id_product", nullable = false)
     private Product idProduct;
 
+    @MapsId("idSize")
+    @ManyToOne
+    @JoinColumn(name = "id_size",nullable = false)
+    private Size idSize;
+
     @Column(name = "quantity")
     private Integer quantity;
 

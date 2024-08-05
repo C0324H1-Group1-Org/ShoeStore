@@ -1,9 +1,6 @@
 package org.example.casestudymodule4shoestore.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +11,16 @@ import lombok.Setter;
 public class OrderItem {
     @EmbeddedId
     private OrderItemId id;
+
+    @MapsId("orderId")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @MapsId("productId")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "quantity")
     private Integer quantity;
