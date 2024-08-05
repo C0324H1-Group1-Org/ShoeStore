@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Đăng ký tài khoản</title>
     <style>
-        video {
+        img {
             position: fixed;
             display: inline-block;
             top: 50%;
@@ -17,14 +17,25 @@
             transform: translateX(-50%) translateY(-50%);
         }
 
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25); /* Semi-transparent black */
+            z-index: 1; /* Positioned above the video */
+        }
+
         .form-login {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.65);
+            background-color: rgb(255, 255, 255);
             top: 50%;
             left: 50%;
             transform: translateX(-50%) translateY(-50%);
             max-width: 100%;
             width: 400px;
+            z-index: 1000000;
         }
 
         .login-account > a:hover {
@@ -44,9 +55,12 @@
 </head>
 <body>
 
-<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="https://videos.pexels.com/video-files/8116703/8116703-sd_960_506_24fps.mp4" type="video/mp4">
-</video>
+<!--<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">-->
+<!--    <source src="https://videos.pexels.com/video-files/8116703/8116703-sd_960_506_24fps.mp4" type="video/mp4">-->
+<!--</video>-->
+<img src="/images/index_big_screen.png" alt="">
+<div class="overlay">
+</div>
 <div class="container w-50">
     <div class="shadow-lg rounded form-login">
         <div class=" border-bottom border-dark m-auto">
@@ -54,14 +68,30 @@
             <p class="mb-1 text-black px-3 small">Nhanh chóng và dễ dàng.</p>
         </div>
         <div class="pt-0 px-3 pb-3">
-            <form th:action="@{/register}" th:object="${customerDto}" method="POST">
+            <form th:action="@{/register}" th:object="${customerDto}" class="needs-validation" method="POST" novalidate>
                 <div class="mt-3">
                     <div class="row form-floating mb-2">
                         <div class="col-6">
-                            <input type="text" class="form-control" placeholder="Họ" th:field="*{firstName}">
+                            <input type="text" class="form-control"
+                                   th:classappend="${isSubmitted} ? ${#fields.hasErrors('firstName') ? 'is-invalid' : 'is-valid'} : ''"
+                                   id="firstName" th:field="*{firstName}" placeholder="Họ" required>
+                            <div th:if="${#fields.hasErrors('firstName')}" class="invalid-feedback">
+                                <span class="small" th:errors="*{firstName}"></span>
+                            </div>
+                            <div th:unless="${#fields.hasErrors('firstName')}" class="invalid-feedback">
+                                <span class="small">Họ bắt buộc.</span>
+                            </div>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control" placeholder="Tên" th:field="*{lastName}">
+                            <input type="text" class="form-control"
+                                   th:classappend="${isSubmitted} ? ${#fields.hasErrors('lastName') ? 'is-invalid' : 'is-valid'} : ''"
+                                   id="lastName" th:field="*{lastName}" placeholder="Tên" required>
+                            <div th:if="${#fields.hasErrors('lastName')}" class="invalid-feedback">
+                                <span class="small" th:errors="*{lastName}"></span>
+                            </div>
+                            <div th:unless="${#fields.hasErrors('lastName')}" class="invalid-feedback">
+                                <span class="small">Tên bắt buộc.</span>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -73,7 +103,14 @@
                                  th:each="gender : ${T(org.example.casestudymodule4shoestore.models.Gender).values()}">
                                 <div class=" d-flex justify-content-between select-gender">
                                     <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
-                                           for="gender" th:text="${gender}" style="padding-left: 11px; color: rgba(65,65,65, 70%)"></label>
+                                           for="gender" th:if="${gender == gender.MALE}"
+                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Nam</label>
+                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
+                                           for="gender" th:if="${gender == gender.FEMALE}"
+                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Nữ</label>
+                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
+                                           for="gender" th:if="${gender == gender.OTHER}"
+                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Khác</label>
                                     <input class="form-check-input m-3 position-absolute w-100" type="radio" id="gender"
                                            name="gender"
                                            th:value="${gender}" th:field="*{gender}">
@@ -84,33 +121,51 @@
                     <div class="form-floating mb-3 ">
                         <input type="text" class="form-control"
                                th:classappend="${isSubmitted} ? ${#fields.hasErrors('phone') ? 'is-invalid' : 'is-valid'} : ''"
-                               id="phone" th:field="*{phone}" placeholder="Số điện thoại">
+                               id="phone" th:field="*{phone}" placeholder="Số điện thoại" required>
                         <div th:if="${#fields.hasErrors('phone')}" class="invalid-feedback">
-                            <span th:errors="*{phone}"></span>
+                            <span class="small" th:errors="*{phone}"></span>
+                        </div>
+                        <div th:unless="${#fields.hasErrors('phone')}" class="invalid-feedback">
+                            <span class="small">Số điện thoại bắt buộc.</span>
+                        </div>
+                        <div>
+                            <p class="text-danger small" th:text="${phoneError}"></p>
                         </div>
                     </div>
                     <div class="form-floating mb-3 ">
                         <input type="text" class="form-control"
                                th:classappend="${isSubmitted} ? ${#fields.hasErrors('email') ? 'is-invalid' : 'is-valid'} : ''"
-                               id="email" th:field="*{email}" placeholder="Tài khoản đăng ký">
+                               id="email" th:field="*{email}" placeholder="Tài khoản đăng ký" required>
                         <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
-                            <span th:errors="*{email}"></span>
+                            <span class="small" th:errors="*{email}"></span>
+                        </div>
+                        <div th:unless="${#fields.hasErrors('email')}" class="invalid-feedback">
+                            <span class="small">Email bắt buộc.</span>
+                        </div>
+                        <div>
+                            <p class="text-danger small" th:text="${emailError}"></p>
                         </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control"
                                th:classappend="${isSubmitted} ? ${#fields.hasErrors('password') ? 'is-invalid' : 'is-valid'} : ''"
-                               id="password" th:field="*{password}" placeholder="Mật khẩu mới">
+                               id="password" th:field="*{password}" required placeholder="Mật khẩu mới">
                         <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback">
-                            <span th:errors="*{password}"></span>
+                            <span class="small" th:errors="*{password}"></span>
+                        </div>
+                        <div th:unless="${#fields.hasErrors('password')}" class="invalid-feedback">
+                            <span class="small">Mật khẩu bắt buộc.</span>
                         </div>
                     </div>
 
                     <div class="form-floating">
                         <input type="password" class="form-control" name="confirmPassword" th:value="${confirmPassword}"
-                               placeholder="Nhập lại mật khẩu">
+                               placeholder="Nhập lại mật khẩu" required>
                         <div>
-                            <span th:if="${checkPassword}" th:text="${checkPassword}"></span>
+                            <span class="small text-danger" th:if="${checkPassword}" th:text="${checkPassword}"></span>
+                        </div>
+                        <div class=" invalid-feedback">
+                            <span class="small">Mật khẩu bắt buộc.</span>
                         </div>
                     </div>
                     <div class="small   mt-1">
@@ -121,9 +176,7 @@
                             <li>Chỉ các chữ cái, số và ký tự phổ biến mới có thể được sử dụng</li>
                         </ul>
                     </div>
-                    <div>
-                        <p class="text-danger" th:text="${registrationError}"></p>
-                    </div>
+
                     <div class="mt-3 d-flex justify-content-center login-account">
                         <a th:href="@{/login}"> Đăng nhập bằng tài khoản có sẵn</a>
                     </div>
@@ -134,8 +187,27 @@
             </form>
         </div>
     </div>
-
 </div>
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/popper.min.js"></script>

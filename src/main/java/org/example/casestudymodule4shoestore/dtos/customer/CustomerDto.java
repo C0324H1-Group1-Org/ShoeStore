@@ -14,18 +14,19 @@ import org.example.casestudymodule4shoestore.models.Gender;
 public class CustomerDto {
     private Long id;
 
-    @NotBlank(message = "Họ là bắt buộc")
+    @NotBlank(message = "Tên bắt buộc")
     @Pattern(regexp = "^[\\p{L} ]+$", message = "Chưa đúng định dạng")
     private String lastName;
 
-    @NotBlank(message = "Tên là bắt buộc")
+    @NotBlank(message = "Họ bắt buộc")
     @Pattern(regexp = "^[\\p{L} ]+$", message = "Chưa đúng định dạng")
     private String firstName;
 
     @NotNull(message = "Giới tính bắt buộc")
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender = Gender.MALE;
 
+    @NotBlank(message = "Số điện thoại bắt buộc")
     @Pattern(regexp = "^(0[3|5|7|8|9])+([0-9]{8})$", message = "Số điện thoại không hợp lệ")
     private String phone;
 

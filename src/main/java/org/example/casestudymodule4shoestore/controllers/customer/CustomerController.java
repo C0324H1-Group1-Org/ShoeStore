@@ -3,6 +3,7 @@ package org.example.casestudymodule4shoestore.controllers.customer;
 import org.example.casestudymodule4shoestore.dtos.customer.CustomerDto;
 import org.example.casestudymodule4shoestore.models.AppUser;
 import org.example.casestudymodule4shoestore.models.Customer;
+import org.example.casestudymodule4shoestore.models.Gender;
 import org.example.casestudymodule4shoestore.services.customer.ICustomerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,11 @@ public class CustomerController {
             model.addAttribute("customerDto", customerDto);
             return "login-register/register";
         }
-//      Check tài khoản khi đăng ký
-        if (customerService.emailExists(customerDto.getEmail())) {
+//      Check tài khoản, và sđt khi đăng ký
+        if (customerService.phoneAndEmailExists(customerDto.getEmail(),customerDto.getPhone())) {
             model.addAttribute("customerDto", customerDto);
-            model.addAttribute("registrationError", "Tên đăng nhập đã tồn tại");
+            model.addAttribute("emailError", "Tên đăng nhập đã tồn tại");
+            model.addAttribute("phoneError", "Số điện thoại đã tồn tại");
             return "login-register/register";
         }
 //      check password có giống nhau k

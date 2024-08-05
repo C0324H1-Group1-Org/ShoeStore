@@ -6,14 +6,18 @@ import org.example.casestudymodule4shoestore.repositories.customer.ICustomerRepo
 import org.example.casestudymodule4shoestore.repositories.login.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Service
 public class CustomerService implements ICustomerService {
+
     @Autowired
     private IUserRepository userRepository;
 
     @Autowired
     private ICustomerRepo customerRepo;
+
 
     @Override
     public void saveInfoCustomer(Customer customer) {
@@ -24,8 +28,10 @@ public class CustomerService implements ICustomerService {
     public void saveAccountCustomer(AppUser appUser) {
         userRepository.save(appUser);
     }
+
     @Override
-    public boolean emailExists(String name) {
-        return userRepository.findByUserName(name) != null;
+    public boolean phoneAndEmailExists(String email, String phone) {
+        return customerRepo.findCustomerByEmailOrPhone(email,phone) != null;
     }
+
 }

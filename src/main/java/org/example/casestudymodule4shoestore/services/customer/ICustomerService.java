@@ -5,10 +5,9 @@ import org.example.casestudymodule4shoestore.models.Customer;
 
 public interface ICustomerService {
 
-
-    boolean emailExists(String name);
-
     void saveInfoCustomer(Customer customer);
 
     void saveAccountCustomer(AppUser appUser);
+
+    boolean phoneAndEmailExists(String email, String phone);
 }
