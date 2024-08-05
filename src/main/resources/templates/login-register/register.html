@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng ký tài khoản</title>
+    <title>Register an account</title>
     <style>
         img {
             position: fixed;
@@ -37,7 +37,6 @@
             width: 400px;
             z-index: 1000000;
         }
-
         .login-account > a:hover {
             text-decoration: underline;
         }
@@ -100,19 +99,14 @@
                         </div>
                         <div class="row form-floating mb-3">
                             <div class="col-4 pe-0"
-                                 th:each="gender : ${T(org.example.casestudymodule4shoestore.models.Gender).values()}">
-                                <div class=" d-flex justify-content-between select-gender">
-                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
-                                           for="gender" th:if="${gender == gender.MALE}"
-                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Nam</label>
-                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
-                                           for="gender" th:if="${gender == gender.FEMALE}"
-                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Nữ</label>
-                                    <label class="bg-white border m-0 py-2 rounded text-align-center w-100"
-                                           for="gender" th:if="${gender == gender.OTHER}"
-                                           style="padding-left: 11px; color: rgba(65,65,65, 70%)">Khác</label>
-                                    <input class="form-check-input m-3 position-absolute w-100" type="radio" id="gender"
-                                           name="gender"
+                                 th:each="gender, stat : ${T(org.example.casestudymodule4shoestore.models.Gender).values()}">
+                                <div class="border rounded select-gender">
+                                    <label class="m-0 py-2 rounded w-100"
+                                           th:for="'gender' + ${stat.count}"
+                                           style="padding-left: 11px; color: rgba(65,65,65, 70%); cursor: pointer;"
+                                           th:text="${gender.vietnamese}"></label>
+                                    <input class="form-check-input mt-3" type="radio" th:id="'gender' + ${stat.count}"
+                                           name="gender" style="cursor: pointer;"
                                            th:value="${gender}" th:field="*{gender}">
                                 </div>
                             </div>

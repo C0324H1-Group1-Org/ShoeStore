@@ -1,12 +1,12 @@
 package org.example.casestudymodule4shoestore.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "app_user", //
@@ -27,6 +27,5 @@ public class AppUser {
 
     @Column(name = "enabled", length = 1, nullable = false)
     private boolean enabled;
-
 
 }

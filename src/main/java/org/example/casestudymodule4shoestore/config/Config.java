@@ -11,6 +11,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 @Configuration
