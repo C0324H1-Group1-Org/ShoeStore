@@ -14,12 +14,15 @@
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+
     <script>
         function formatCurrency(amount) {
             const formatter = new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
                 currency: 'VND',
                 minimumFractionDigits: 0
+
             });
             return formatter.format(amount);
         }
@@ -38,7 +41,7 @@
             </div>
         </div>
     </div>
-    <form th:action="@{/cart}" th:object="${product}"  method="post">
+    <form th:action="@{/addCart}" th:object="${product}"  method="post">
         <div class="site-section">
             <div class="container">
                 <div class="row mb-5" >
@@ -69,13 +72,14 @@
                                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                 </div>
                                 <input type="text" class="form-control text-center" value="1" placeholder=""
-                                       aria-label="Example text with button addon" aria-describedby="button-addon1" name="quantity">
+                                       aria-label="Example text with button addon" aria-describedby="button-addon1" name="quantity" min="1">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary js-btn-plus" type="button">+</button>
                                 </div>
                             </div>
                         </div>
-
+                        <p th:text="${message}"></p>
+                        <input name="id" type="hidden" th:field="*{id}" th:value="product.id">
                         <button type="submit" class="buy-now btn btn-sm btn-primary">Thêm vào giỏ hàng</button>
                     </div>
                 </div>
@@ -177,6 +181,7 @@
 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{/js/aos.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const priceElement = document.getElementById('price');
