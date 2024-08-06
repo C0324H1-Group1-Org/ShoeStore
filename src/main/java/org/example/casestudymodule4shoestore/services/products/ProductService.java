@@ -1,15 +1,15 @@
 package org.example.casestudymodule4shoestore.services.products;
 
+import org.example.casestudymodule4shoestore.dtos.product.ProductCategoryDTO;
 import org.example.casestudymodule4shoestore.models.Product;
 import org.example.casestudymodule4shoestore.repositories.products.IProductRepository;
-import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-public class ProductService implements IGenerateService<Product> {
+public class ProductService implements IProductService {
 
     @Autowired
     private IProductRepository productRepository;
@@ -24,8 +24,17 @@ public class ProductService implements IGenerateService<Product> {
         return productRepository.findById(id);
     }
 
-    @Override
     public List<Product> sortProductsByPrice(){
         return productRepository.sortProductsByPrice();
+    }
+
+    @Override
+    public Iterable<Product> findProductByCategory(Integer id) {
+        return productRepository.findAllByCat_Id(id);
+    }
+
+    @Override
+    public List<Product> findProductByName(String name) {
+        return productRepository.findAllByNameContaining("%" + name + "%");
     }
 }

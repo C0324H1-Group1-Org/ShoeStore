@@ -1,13 +1,14 @@
 package org.example.casestudymodule4shoestore.controllers;
 
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.services.IGenerateService;
+import org.example.casestudymodule4shoestore.services.products.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/")
 public class UserController {
     @Autowired
-    private IGenerateService productService;
+    private IProductService productService;
 
     @GetMapping
     public String home(Model model) {
@@ -79,14 +80,18 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String search(Model model) {
+    public String search(@RequestParam(value = "name", required = false) String name, Model model) {
         model.addAttribute("navbar", "search");
+        List<Product> products = productService.findProductByName(name);
+        model.addAttribute("products", products);
         return "/shop";
     }
 
-    @GetMapping("/shop/category/{id}")
-    public String shopCategory(@PathVariable Long id, Model model){
-        model.addAttribute("navbar", "shopCategory");
+    @GetMapping("/category{id}")
+    public String shopCategory(@PathVariable Integer id, Model model){
+        model.addAttribute("navbar", "category");
+        List<Product> products = (List<Product>) productService.findProductByCategory(id);
+        model.addAttribute("products", products);
         return "/shop";
     }
 

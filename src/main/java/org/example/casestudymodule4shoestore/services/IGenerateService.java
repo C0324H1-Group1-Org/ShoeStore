@@ -11,7 +11,5 @@ public interface IGenerateService<T> {
 
     Optional<Product> findProductById(Long id);
 
-    List<Product> sortProductsByPrice();
-
 
 }
