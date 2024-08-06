@@ -10,7 +10,82 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         
     <link rel="stylesheet" type="text/css" th:href="@{/admin/style.css}"/>
-    
+    <style>
+        /* General styles for the form */
+        form {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .recentOrders {
+            margin-bottom: 20px;
+        }
+
+        .recentOrders label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .recentOrders input[type="text"],
+        .recentOrders input[type="number"],
+        .recentOrders textarea,
+        .recentOrders select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .recentOrders textarea {
+            resize: vertical;
+        }
+
+        .recentOrders input[type="submit"] {
+            background-color: #003147;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .recentOrders input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .recentCustomers table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .recentCustomers th, .recentCustomers td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .recentCustomers thead {
+            background-color: #f2f2f2;
+        }
+
+        .recentCustomers input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
@@ -77,7 +152,7 @@
                 </div> -->
                 <p>Chào, Admin</p>
             </div>
-            <form action="create"  th:object="${product}" method="post">
+            <form action="create-product"  th:object="${product}" method="post">
             <div class="details" style="margin-top: 10px;">
 
                 <div class="recentOrders">
@@ -90,13 +165,15 @@
                         <input type="text" name="image" th:field="*{image}">
                         <label for="name">Mô tả</label>
                         <textarea name="description"  cols="30" rows="10" th:field="*{description}"></textarea>
+                        <label for="">Thể loại</label>
                         <select name="category" th:field="*{cat}">
                             <option th:value="${category.id}" th:text="${category.name}" th:each="category: ${categories}"></option>
                         </select>
+                        <label for="">Thương hiệu</label>
                         <select name="brand" id="" th:field="*{brand}">
                             <option th:value="${brand.id}" th:text="${brand.name}" th:each="brand: ${brands}"></option>
                         </select>
-                    <input type="submit">Submit
+                    <input type="submit" value="Lưu">
 
                 </div>
                 <div class="recentCustomers">
@@ -104,7 +181,7 @@
                         <thead>
                         <tr>
                             <td>Size</td>
-                            <td>So luong</td>
+                            <td>Số lượng</td>
                         </tr>
                         </thead>
                         <tbody>

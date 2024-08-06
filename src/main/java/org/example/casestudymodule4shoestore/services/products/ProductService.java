@@ -1,13 +1,7 @@
 package org.example.casestudymodule4shoestore.services.products;
 
-import org.example.casestudymodule4shoestore.models.Brand;
-import org.example.casestudymodule4shoestore.models.Category;
-import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.models.Size;
-import org.example.casestudymodule4shoestore.repositories.products.IBrandRepository;
-import org.example.casestudymodule4shoestore.repositories.products.ICategoryRepository;
-import org.example.casestudymodule4shoestore.repositories.products.IProductRepository;
-import org.example.casestudymodule4shoestore.repositories.products.ISizeRepository;
+import org.example.casestudymodule4shoestore.models.*;
+import org.example.casestudymodule4shoestore.repositories.products.*;
 import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +19,8 @@ public class ProductService implements IGenerateService<Product> {
     private IBrandRepository brandRepository;
     @Autowired
     private ICategoryRepository categoryRepository;
+    @Autowired
+    private IProductSizeRepository productSizeRepository;
 
     @Override
     public List<Product> findAll() {
@@ -49,4 +45,8 @@ public class ProductService implements IGenerateService<Product> {
     public List<Brand> findAllBrand(){
         return brandRepository.findAll();
     }
+    public void saveAllProductSize(List<ProductSize> productSizes){
+        productSizeRepository.saveAll(productSizes);
+    }
+
 }

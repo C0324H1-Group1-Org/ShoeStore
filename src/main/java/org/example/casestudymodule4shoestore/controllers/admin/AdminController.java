@@ -5,6 +5,7 @@ import org.example.casestudymodule4shoestore.repositories.products.IProductSizeR
 import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.example.casestudymodule4shoestore.services.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,9 @@ public class AdminController {
 
     @Autowired
     private ProductService productService;
+
     @Autowired
-    IProductSizeRepository productSizeRepository;
+    private ServerProperties serverProperties;
 
     @GetMapping
     public String index(){
@@ -35,7 +37,7 @@ public class AdminController {
         return "admin/products";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create-product")
     public String addNewProduct(Model model){
         List<Size> sizes = productService.findAllSize();
         List<Category> categories = productService.findAllCategory();
@@ -53,45 +55,55 @@ public class AdminController {
         model.addAttribute("brands",brands);
         return "admin/add_new_product";
     }
-    @PostMapping("/create")
+    @PostMapping("/create-product")
     public String addNewProductPost(Product product){
-
+        Product savedProduct = productService.save(product);
+        List<ProductSize> productSizes = product.getProductSizes();
+        for (ProductSize productSize : productSizes){
+            ProductSizeId productSizeId = new ProductSizeId();
+            productSizeId.setIdProduct(savedProduct.getId());
+            productSizeId.setIdSize(productSize.getIdSize().getId());
+            productSize.setId(productSizeId);
+            productSize.setIdSize(productSize.getIdSize());
+            productSize.setIdProduct(savedProduct);
+        }
+        productService.saveAllProductSize(productSizes);
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/test")
-    public String test(){
-        Product product = new Product();
-        List<ProductSize> productSizes = new ArrayList<>();
-        List<Size> sizes = productService.findAllSize();
-
-        Category category = new Category();
-        category.setId(1);
-        category.setName("Nike");
-        Brand brand = new Brand();
-        brand.setId(1);
-        brand.setName("Adidas");
-        product.setName("New Test Product");
-        product.setPrice(99888F);
-        product.setDescription("Mo ta new test product");
-        product.setCat(category);
-        product.setBrand(brand);
-        product = productService.save(product);
-        for (Size size : sizes){
-            ProductSize productSize = new ProductSize();
-            ProductSizeId productSizeId = new ProductSizeId();
-            productSizeId.setIdProduct(product.getId());
-            productSizeId.setIdSize(size.getId());
-            productSize.setId(productSizeId);
-            productSize.setIdProduct(product);
-            productSize.setIdSize(size);
-            productSizes.add(productSize);
-        }
-
-        productSizeRepository.saveAll(productSizes);
-
-        return "admin/products";
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        Product product = new Product();
+//        List<ProductSize> productSizes = new ArrayList<>();
+//        List<Size> sizes = productService.findAllSize();
+//
+//        Category category = new Category();
+//        category.setId(1);
+//        category.setName("Nike");
+//        Brand brand = new Brand();
+//        brand.setId(1);
+//        brand.setName("Adidas");
+//        product.setName("New Test Product");
+//        product.setPrice(99888F);
+//        product.setDescription("Mo ta new test product");
+//        product.setCat(category);
+//        product.setBrand(brand);
+//        product = productService.save(product);
+//        for (Size size : sizes){
+//            ProductSize productSize = new ProductSize();
+//            ProductSizeId productSizeId = new ProductSizeId();
+//            productSizeId.setIdProduct(product.getId());
+//            productSizeId.setIdSize(size.getId());
+//            productSize.setId(productSizeId);
+//            productSize.setIdProduct(product);
+//            productSize.setIdSize(size);
+//            productSizes.add(productSize);
+//        }
+//
+//        productSizeRepository.saveAll(productSizes);
+//
+//        return "admin/products";
+//    }
 
 
 }

@@ -39,7 +39,7 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "idProduct",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "idProduct")
     private List<ProductSize> productSizes;
 
 }
