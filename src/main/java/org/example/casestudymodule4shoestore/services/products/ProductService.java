@@ -31,7 +31,7 @@ public class ProductService implements IProductService {
     }
 
     public int findIdCart(int idCustomer) {
-        return productRepository.findIdCart(idCustomer);
+        return productRepository.findIdCart(idCustomer);}
       
     public List<Product> sortProductsByPrice(){
         return productRepository.sortProductsByPrice();
