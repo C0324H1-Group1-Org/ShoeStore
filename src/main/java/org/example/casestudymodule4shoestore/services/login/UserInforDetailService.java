@@ -31,4 +31,5 @@ public class UserInforDetailService implements UserDetailsService {
         UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser, userRoles);
         return infoUserDetails;
     }
+
 }

@@ -17,8 +17,8 @@ public class AppRole {
     //    ROLE_ADMIN
 //    ROLE_USER
     @Id
-    @GeneratedValue
-    @Column(name = "role_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long roleId;
 
     @Column(name = "role_name", length = 30, nullable = false)

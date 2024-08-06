@@ -1,11 +1,10 @@
 package org.example.casestudymodule4shoestore.controllers.customer;
 
 import org.example.casestudymodule4shoestore.dtos.customer.CustomerDto;
-import org.example.casestudymodule4shoestore.models.AppUser;
-import org.example.casestudymodule4shoestore.models.Customer;
-import org.example.casestudymodule4shoestore.models.Gender;
+import org.example.casestudymodule4shoestore.models.*;
 import org.example.casestudymodule4shoestore.services.customer.ICustomerService;
-import org.springframework.beans.BeanUtils;
+import org.example.casestudymodule4shoestore.services.login.IAppRoleService;
+import org.example.casestudymodule4shoestore.services.login.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class CustomerController {
     @Autowired
@@ -24,6 +26,12 @@ public class CustomerController {
 
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private IAppRoleService appRoleService;
 
     @GetMapping("/register")
     public String showFormRegister(Model model) {
@@ -42,14 +50,14 @@ public class CustomerController {
             return "login-register/register";
         }
 //      Check tài khoản, và sđt khi đăng ký
-        if (customerService.phoneAndEmailExists(customerDto.getEmail(),customerDto.getPhone())) {
+        if (customerService.phoneAndEmailExists(customerDto.getEmail(), customerDto.getPhone())) {
             model.addAttribute("customerDto", customerDto);
             model.addAttribute("emailError", "Tên đăng nhập đã tồn tại");
             model.addAttribute("phoneError", "Số điện thoại đã tồn tại");
             return "login-register/register";
         }
 //      check password có giống nhau k
-        if(!confirmPassword.equals(customerDto.getPassword())) {
+        if (!confirmPassword.equals(customerDto.getPassword())) {
             model.addAttribute("customerDto", customerDto);
             model.addAttribute("checkPassword", "Mật khẩu không khớp!");
             return "login-register/register";
@@ -58,10 +66,21 @@ public class CustomerController {
         customerDto.setEnabled(true);
 //      mã hoá password
         String encodedPassword = passwordEncoder.encode(customerDto.getPassword());
+
 //      lưu vào tk
-        AppUser appUser = new AppUser(customerDto.getId(),customerDto.getEmail(),encodedPassword,customerDto.isEnabled());
-        Customer customer = new Customer(customerDto.getId(),customerDto.getLastName(),customerDto.getFirstName(),customerDto.getGender(),customerDto.getPhone(),customerDto.getEmail());
+        AppUser appUser = new AppUser();
+        appUser.setUserName(customerDto.getEmail());
+        appUser.setEncrytedPassword(encodedPassword);
+        appUser.setEnabled(customerDto.isEnabled());
         customerService.saveAccountCustomer(appUser);
+        userRoleService.save(appUser, appRoleService.findByRoleName("ROLE_USER"));
+//
+        Customer customer = new Customer();
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setGender(customerDto.getGender());
+        customer.setPhone(customerDto.getPhone());
+        customer.setEmail(customerDto.getEmail());
         customerService.saveInfoCustomer(customer);
         return "login-register/login";
     }

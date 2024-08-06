@@ -39,4 +39,5 @@ public class CustomerDto {
     private String password;
 
     private boolean enabled;
+
 }

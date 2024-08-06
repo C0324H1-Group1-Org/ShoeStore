@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserInfoUserDetails implements UserDetails {
+
     private String username;
     private String password;
     private List<GrantedAuthority> authorities;
