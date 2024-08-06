@@ -1,12 +1,8 @@
 package org.example.casestudymodule4shoestore.controllers.admin;
 
 import org.example.casestudymodule4shoestore.models.*;
-import org.example.casestudymodule4shoestore.repositories.products.IProductSizeRepository;
-import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.example.casestudymodule4shoestore.services.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +18,6 @@ public class AdminController {
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private ServerProperties serverProperties;
 
     @GetMapping
     public String index(){
@@ -71,39 +64,7 @@ public class AdminController {
         return "redirect:/admin/products";
     }
 
-//    @GetMapping("/test")
-//    public String test(){
-//        Product product = new Product();
-//        List<ProductSize> productSizes = new ArrayList<>();
-//        List<Size> sizes = productService.findAllSize();
-//
-//        Category category = new Category();
-//        category.setId(1);
-//        category.setName("Nike");
-//        Brand brand = new Brand();
-//        brand.setId(1);
-//        brand.setName("Adidas");
-//        product.setName("New Test Product");
-//        product.setPrice(99888F);
-//        product.setDescription("Mo ta new test product");
-//        product.setCat(category);
-//        product.setBrand(brand);
-//        product = productService.save(product);
-//        for (Size size : sizes){
-//            ProductSize productSize = new ProductSize();
-//            ProductSizeId productSizeId = new ProductSizeId();
-//            productSizeId.setIdProduct(product.getId());
-//            productSizeId.setIdSize(size.getId());
-//            productSize.setId(productSizeId);
-//            productSize.setIdProduct(product);
-//            productSize.setIdSize(size);
-//            productSizes.add(productSize);
-//        }
-//
-//        productSizeRepository.saveAll(productSizes);
-//
-//        return "admin/products";
-//    }
+
 
 
 }
