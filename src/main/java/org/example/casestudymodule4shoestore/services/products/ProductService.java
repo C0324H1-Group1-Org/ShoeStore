@@ -21,17 +21,15 @@ public class ProductService implements IGenerateService<Product> {
         return productRepository.findAll();
     }
 
-    @Override
+   @Override
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
     }
 
-    @Override
-    public boolean addProduct(Product product, int quantity, int size,int idCart) {
-        return productRepository.addProduct(product,quantity,size,idCart);
+    public boolean addProduct(Integer productId, int quantity, int size,int idCart) {
+        return productRepository.addProduct(productId,quantity,size,idCart);
     }
 
-    @Override
     public int findIdCart(int idCustomer) {
         return productRepository.findIdCart(idCustomer);
     }

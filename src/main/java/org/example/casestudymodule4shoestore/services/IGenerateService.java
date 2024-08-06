@@ -10,9 +10,9 @@ public interface IGenerateService<T> {
     List<T> findAll();
 
     Optional<Product> findProductById(Long id);
-
-    boolean addProduct(Product product, int quantity, int size,int idCart);
-
-    int findIdCart(int idCustomer);
+//
+//    boolean addProduct(Integer productId, int quantity, int size,int idCart);
+//
+//    int findIdCart(int idCustomer);
 
 }

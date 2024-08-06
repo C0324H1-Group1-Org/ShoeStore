@@ -4,6 +4,7 @@ import org.example.casestudymodule4shoestore.dtos.login.UserInfoUserDetails;
 import org.example.casestudymodule4shoestore.models.Customer;
 import org.example.casestudymodule4shoestore.models.Product;
 import org.example.casestudymodule4shoestore.services.IGenerateService;
+import org.example.casestudymodule4shoestore.services.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,11 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CartController {
     @Autowired
-    private IGenerateService productService;
+    private ProductService productService;
 
 
     @PostMapping("/addCart")
-    public String addCart(@ModelAttribute("product") Product product,
+    public String addCart(@RequestParam("id") Integer productId,
                           @RequestParam("quantity") int quantity,
                           @RequestParam("size") int size,
                           RedirectAttributes redirectAttributes) {
@@ -34,16 +35,16 @@ public class CartController {
 //        UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
 //        Long idCustomer = userDetails.getIdCustomer();
 
-        Customer customer = new Customer();
         int idCustomer = 1;
         int idCart = productService.findIdCart(idCustomer);
 
-        boolean check = productService.addProduct(product, quantity, size,idCart);
+        boolean check = productService.addProduct(productId, quantity, size,idCart);
         if (check) {
             redirectAttributes.addFlashAttribute("message", "Thêm vào giỏ hàng thành công");
         } else {
             redirectAttributes.addFlashAttribute("message", "Thêm vào giỏ hàng thất bại!");
         }
-        return "redirect:/detail/" + product.getId();
+        return "redirect:/detail/" + productId;
     }
+
 }

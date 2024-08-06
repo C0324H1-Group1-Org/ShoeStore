@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <p th:text="${message}"></p>
-                        <input type="hidden" th:field="*{id}">
+                        <input name="id" type="hidden" th:field="*{id}" th:value="product.id">
                         <button type="submit" class="buy-now btn btn-sm btn-primary">Thêm vào giỏ hàng</button>
                     </div>
                 </div>
