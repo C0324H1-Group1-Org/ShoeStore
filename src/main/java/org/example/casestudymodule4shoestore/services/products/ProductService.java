@@ -12,11 +12,6 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class ProductService implements IGenerateService<Product> {
-    List<CartDTO> cartDTOS = new ArrayList<>();
-
-
-
-
 
     @Autowired
     private IProductRepository productRepository;
@@ -29,5 +24,15 @@ public class ProductService implements IGenerateService<Product> {
     @Override
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
+    }
+
+    @Override
+    public boolean addProduct(Product product, int quantity, int size,int idCart) {
+        return productRepository.addProduct(product,quantity,size,idCart);
+    }
+
+    @Override
+    public int findIdCart(int idCustomer) {
+        return productRepository.findIdCart(idCustomer);
     }
 }

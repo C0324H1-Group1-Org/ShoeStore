@@ -11,4 +11,8 @@ public interface IGenerateService<T> {
 
     Optional<Product> findProductById(Long id);
 
+    boolean addProduct(Product product, int quantity, int size,int idCart);
+
+    int findIdCart(int idCustomer);
+
 }
