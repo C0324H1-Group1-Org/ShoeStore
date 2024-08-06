@@ -1,7 +1,6 @@
 package org.example.casestudymodule4shoestore.controllers.admin;
 
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.example.casestudymodule4shoestore.services.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
