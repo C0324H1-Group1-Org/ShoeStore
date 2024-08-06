@@ -68,7 +68,7 @@
                     <td class="product-name">
                       <h2 class="h5 text-black" th:text="${item.idProduct.name}"></h2>
                     </td>
-                    <td id="price1" th:data-price1="${item.idProduct.price}"></td>
+                    <td class="price" th:data-price="${item.idProduct.price}"></td>
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
@@ -81,7 +81,7 @@
                       </div>
                     <td th:text="${item.size}"></td>
                     </td>
-                    <td  id="price2" th:data-price2="${item.quantity * item.idProduct.price}"></td>
+                    <td  class="price" th:data-price="${item.quantity * item.idProduct.price}"></td>
                     <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
                   </tr>
 
@@ -135,7 +135,7 @@
                     <span class="text-black">Tổng</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black" id="price" th:data-price="${totalPrice}"></strong>
+                    <strong class="price text-black"  th:data-price="${totalPrice}"></strong>
                   </div>
                 </div>
 
