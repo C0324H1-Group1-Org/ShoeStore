@@ -50,11 +50,12 @@ public class CartController {
         }
         return "redirect:/detail/" + productId;
     }
+
     @GetMapping("/cart")
-    public String cart(Model model  ) {
+    public String cart(Model model) {
         Cart cart = cartService.findCartByCustomerId(1);
         float totalPrice = 0;
-        for (CartDetail cartDetail: cart.getCartDetailList()){
+        for (CartDetail cartDetail : cart.getCartDetailList()) {
             totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
         }
         model.addAttribute("cart" , cart);

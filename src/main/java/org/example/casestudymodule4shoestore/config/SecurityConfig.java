@@ -41,12 +41,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
-                                .requestMatchers("/logout").authenticated()
-                                .anyRequest().permitAll()
-                )
-
+//                .authorizeHttpRequests((authorizeHttpRequests) ->
+//                        authorizeHttpRequests
+//
+//                                .requestMatchers("/shop", "/login", "/about", "/contact", "/register", "/index", "/cart", "/checkout", "/logoutSuccessful").permitAll()
+//                                .requestMatchers("/css/**", "/js/**", "/images/**", "/scss/**", "/fonts/**").permitAll())
+////                Config các đường dẫn bắt buộc cần đăng nhập
+//                .authorizeHttpRequests((authorizeHttpRequests) ->
+//                        authorizeHttpRequests
+//                                .requestMatchers("/logout").authenticated()
+//                                .anyRequest().permitAll()
+//                )
 //               Cấu hình lại form login
                 .formLogin((formLogin) ->
                         formLogin
