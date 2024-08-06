@@ -12,6 +12,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 //    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM cart_detail WHERE product_id = :productId")
 //    Long countProductInCart(@Param("productId") Long productId);
 
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "INSERT INTO cart_detail (product_id, quantity, size,cart_id) VALUES (:productId, :quantity, :size ,:idCart)")
