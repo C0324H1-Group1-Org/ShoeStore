@@ -752,12 +752,3 @@ a {
   border-radius: 50%;
   margin-bottom: 20px; }
 
-
-/*Style select size - begin*/
-.sizes {
-  display: grid;
-  grid-template-columns: repeat(5, 50px);
-  gap: 10px;
-}
-
-/*Style select size - end*/
