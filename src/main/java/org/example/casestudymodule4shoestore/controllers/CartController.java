@@ -43,14 +43,13 @@ public class CartController {
         }
         model.addAttribute("cart" , cart);
         model.addAttribute("totalPrice", totalPrice);
-        model.a
         return "cart";
 }
-    @PostMapping("/cart")
-    public String updateCart(Model model,
-                             @RequestParam ("id_cart") String idCart,
-                             @RequestParam("quantity")int quantity){
-        Cart cart =
-    }
+//    @PostMapping("/cart")
+//    public String updateCart(Model model,
+//                             @RequestParam ("id_cart") String idCart,
+//                             @RequestParam("quantity")int quantity){
+//
+//    }
 
 }

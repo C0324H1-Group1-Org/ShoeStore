@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/style.css}"/>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-btc" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">
+                            <h2>BURNING KEY</h2>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li><a href="products.html">
+                    <span class="icon"><i class="fa fa-product-hunt" aria-hidden="true"></i></span>
+                    <span class="title">Product</span>
+                </a>
+                </li>
+                <li><a href="#">
+                        <!-- <span class="icon"><i class="fa fa-comment-o" aria-hidden="true"></i></span> -->
+                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                        <span class="title">Orders</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <span class="title">User</span>
+                </a>
+                </li>
+                <!-- <li><a href="#">
+                        <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        <span class="title">Help</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                        <span class="title">Sign out</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="main" >
+            <div class="topbar">
+                <div class="toggle" onclick="toggleMenu()"></div>
+                <!-- <div class="user">
+                    <img src="user.jpeg">
+                </div> -->
+                <p>Chào, Admin</p>
+            </div>
+            <form action="create"  th:object="${product}" method="post">
+            <div class="details" style="margin-top: 10px;">
+
+                <div class="recentOrders">
+
+                        <label for="name">Tên</label>
+                        <input type="text" name="name" th:field="*{name}">
+                        <label for="name">Giá</label>
+                        <input type="number" name="price" th:field="*{price}">
+                        <label for="name">Hình ảnh</label>
+                        <input type="text" name="image" th:field="*{image}">
+                        <label for="name">Mô tả</label>
+                        <textarea name="description"  cols="30" rows="10" th:field="*{description}"></textarea>
+                        <select name="category" th:field="*{cat}">
+                            <option th:value="${category.id}" th:text="${category.name}" th:each="category: ${categories}"></option>
+                        </select>
+                        <select name="brand" id="" th:field="*{brand}">
+                            <option th:value="${brand.id}" th:text="${brand.name}" th:each="brand: ${brands}"></option>
+                        </select>
+                    <input type="submit">Submit
+
+                </div>
+                <div class="recentCustomers">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>Size</td>
+                            <td>So luong</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="productSize,itemStat : *{productSizes}">
+                                <td th:text="${productSize.idSize.number}"></td>
+                                <input type="hidden" th:field="*{productSizes[__${itemStat.index}__].idSize}">
+                                <td><input type="number" name="quantity" value="0" th:field="*{productSizes[__${itemStat.index}__].quantity}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+    
+</html>
