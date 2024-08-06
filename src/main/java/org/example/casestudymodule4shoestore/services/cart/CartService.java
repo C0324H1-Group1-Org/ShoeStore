@@ -27,4 +27,12 @@ public class CartService implements IGenerateService<Cart> {
     public Cart findCartByCustomerId(Integer customerId){
         return cartRepository.findByCustomerId(customerId);
     }
+    public void removeProductFromCart(Cart cart, Long productId) {
+        cartRepository.removeProductFromCart((long) cart.getCart_id(), productId);
+        cartRepository.save(cart);
+    }
+    public void updateProductQuantity(Cart cart, Long productId, int quantity) {
+        cartRepository.updateProductQuantity((long) cart.getCart_id(), productId, quantity);
+        cartRepository.save(cart);
+    }
 }

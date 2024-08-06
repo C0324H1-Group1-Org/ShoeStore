@@ -45,11 +45,17 @@ public class CartController {
         model.addAttribute("totalPrice", totalPrice);
         return "cart";
 }
-//    @PostMapping("/cart")
-//    public String updateCart(Model model,
-//                             @RequestParam ("id_cart") String idCart,
-//                             @RequestParam("quantity")int quantity){
-//        Cart cart =
-//    }
+    @GetMapping("/cart/remove")
+    public String removeProductFromCart(@RequestParam("id") Long productId, Model model) {
+        Cart cart = cartService.findCartByCustomerId(1);
+        cartService.removeProductFromCart(cart, productId);
+        return "redirect:/cart";
+    }
 
+    @PostMapping("/cart/update")
+    public String updateProductQuantity(@RequestParam("productId") Long productId, @RequestParam("quantity") int quantity, Model model) {
+        Cart cart = cartService.findCartByCustomerId(1);
+        cartService.updateProductQuantity(cart, productId, quantity);
+        return "redirect:/cart";
+    }
 }
