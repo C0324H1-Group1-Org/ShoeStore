@@ -28,7 +28,7 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Trang Chủ</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cửa Hàng</strong></div>
+          <div class="col-md-12 mb-0"><a href="/">Trang Chủ</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cửa Hàng</strong></div>
         </div>
       </div>
     </div>
@@ -84,7 +84,6 @@
 
 
 
-
             </div>
             <div class="row" data-aos="fade-up">
               <div class="col-md-12 text-center">
@@ -105,11 +104,12 @@
 
           <div class="col-md-3 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Thể Loại</h3>
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Chủng Loại</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="#" class="d-flex"><span>Thể Loại 1</span> <span class="text-black ml-auto">(2,220)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Thể Loại 2</span> <span class="text-black ml-auto">(2,550)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Thể Loại 3</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+                <li class="mb-1"><a href="/category1" class="d-flex"><span>Sneaker</span> <span class="text-black ml-auto">(15)</span></a></li>
+                <li class="mb-1"><a href="/category2" class="d-flex"><span>Giày đi bộ</span> <span class="text-black ml-auto">(4)</span></a></li>
+                <li class="mb-1"><a href="/category3" class="d-flex"><span>Giày bóng rổ</span> <span class="text-black ml-auto">(10)</span></a></li>
+                <li class="mb-1"><a href="/category4" class="d-flex"><span>Giày leo núi</span> <span class="text-black ml-auto">(5)</span></a></li>
               </ul>
             </div>
 
@@ -163,18 +163,18 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/category2">
                       <figure class="image">
                         <img src="images/bo_su_tap_giay_chay_bo.jpg" alt="" class="img-fluid">
                       </figure>
                       <div class="text">
                         <span class="text-uppercase">BỘ SƯU TẬP</span>
-                        <h3>Giày Chạy Bộ</h3>
+                        <h3>Giày Đi Bộ</h3>
                       </div>
                     </a>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/category3">
                       <figure class="image">
                         <img src="images/bo_su_tap_giay_the_thao.jpg" alt="" class="img-fluid">
                       </figure>
@@ -185,7 +185,7 @@
                     </a>
                   </div>
                   <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-                    <a class="block-2-item" href="#">
+                    <a class="block-2-item" href="/category4">
                       <figure class="image">
                         <img src="images/bo_su_tap_giay_leo_nui.jpg" alt="" class="img-fluid">
                       </figure>
@@ -207,15 +207,15 @@
     <footer th:replace="layout/footer.html"></footer>
   </div>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
+  <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+  <script th:src="@{js/jquery-ui.js}"></script>
+  <script th:src="@{js/popper.min.js}"></script>
+  <script th:src="@{js/bootstrap.min.js}"></script>
+  <script th:src="@{js/owl.carousel.min.js}"></script>
+  <script th:src="@{js/jquery.magnific-popup.min.js}"></script>
+  <script th:src="@{js/aos.js}"></script>
 
-  <script src="js/main.js"></script>
+  <script th:src="@{js/main.js}"></script>
     
   </body>
 </html>
