@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
     <meta charset="utf-8">
@@ -18,6 +18,16 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
+    <script>
+      function formatCurrency(amount) {
+        const formatter = new Intl.NumberFormat('vi-VN', {
+          style: 'currency',
+          currency: 'VND',
+          minimumFractionDigits: 0
+        });
+        return formatter.format(amount);
+      }
+    </script>
     
   </head>
   <body>
@@ -45,58 +55,36 @@
                     <th class="product-name">Sản Phẩm</th>
                     <th class="product-price">Giá</th>
                     <th class="product-quantity">Số Lượng</th>
+                    <th class="product-quantity">Size</th>
                     <th class="product-total">Tổng Tiền </th>
                     <th class="product-remove">Xóa</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr th:each="item: ${cart.cartDetailList}">
                     <td class="product-thumbnail">
-                      <img src="images/shoe_1.jpg" alt="Image" class="img-fluid">
+                      <img th:src="${item.idProduct.image}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
-                      <h2 class="h5 text-black">Top Up T-Shirt</h2>
+                      <h2 class="h5 text-black" th:text="${item.idProduct.name}"></h2>
                     </td>
-                    <td>$49.00</td>
+                    <td id="price1" th:data-price1="${item.idProduct.price}"></td>
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                         </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <input type="text" class="form-control text-center" th:field="*{item.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         <div class="input-group-append">
                           <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                         </div>
                       </div>
-
+                    <td th:text="${item.size}"></td>
                     </td>
-                    <td>$49.00</td>
+                    <td  id="price2" th:data-price2="${item.quantity * item.idProduct.price}"></td>
                     <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
                   </tr>
 
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/shoe_1.jpg" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Polo Shirt</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
-
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -147,7 +135,7 @@
                     <span class="text-black">Tổng</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black">$230.00</strong>
+                    <strong class="text-black" id="price" th:data-price="${totalPrice}"></strong>
                   </div>
                 </div>
 
@@ -175,6 +163,22 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-    
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const priceElement = document.getElementById('price');
+      const price = parseFloat(priceElement.getAttribute('data-price'));
+      priceElement.textContent = formatCurrency(price);
+    })
+    document.addEventListener('DOMContentLoaded', function() {
+      const priceElement = document.getElementById('price1');
+      const price1 = parseFloat(priceElement.getAttribute('data-price1'));
+      priceElement.textContent = formatCurrency(price1);
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const priceElement = document.getElementById('price2');
+      const price2 = parseFloat(priceElement.getAttribute('data-price2'));
+      priceElement.textContent = formatCurrency(price2);
+    });
+  </script>
   </body>
 </html>

@@ -36,14 +36,12 @@ public class UserController {
 
     @GetMapping("/shop")
     public String shop(Model model) {
-        model.addAttribute("navbar", "shop");
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
         return "shop";
     }
 
-    @GetMapping("/cart")
-    public String cart() {
-        return "cart";
-    }
+
 
     @GetMapping("/about")
     public String about(Model model) {
