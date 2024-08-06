@@ -14,11 +14,12 @@ public class SecurityController {
         return "login-register/login";
     }
 
-    @GetMapping(value = "/logoutSuccessful")
-    public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
-        return "login-register/login";
-    }
+//    @GetMapping(value = "/logoutSuccessful")
+//    public String logoutSuccessfulPage(Model model) {
+//        System.out.println("out-----------");
+//        model.addAttribute("title", "Logout");
+//        return "login-register/login";
+//    }
 
     @GetMapping("/403")
     public String forbiddenPage(Model model) {
