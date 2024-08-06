@@ -31,5 +31,4 @@ public class AppUser {
 
     @Column(name = "enabled", length = 1, nullable = false)
     private boolean enabled;
-
 }

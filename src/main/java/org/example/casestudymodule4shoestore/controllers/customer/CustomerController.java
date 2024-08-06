@@ -2,9 +2,12 @@ package org.example.casestudymodule4shoestore.controllers.customer;
 
 import org.example.casestudymodule4shoestore.dtos.customer.CustomerDto;
 import org.example.casestudymodule4shoestore.models.*;
+import org.example.casestudymodule4shoestore.repositories.login.IVerificationTokenRepository;
 import org.example.casestudymodule4shoestore.services.customer.ICustomerService;
 import org.example.casestudymodule4shoestore.services.login.IAppRoleService;
 import org.example.casestudymodule4shoestore.services.login.IUserRoleService;
+import org.example.casestudymodule4shoestore.services.login.IUserService;
+import org.example.casestudymodule4shoestore.services.login.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class CustomerController {
 
     @Autowired
     private IAppRoleService appRoleService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/register")
     public String showFormRegister(Model model) {
@@ -62,25 +68,27 @@ public class CustomerController {
             model.addAttribute("checkPassword", "Mật khẩu không khớp!");
             return "login-register/register";
         }
-//      set cho tk hoạt động
-        customerDto.setEnabled(true);
+
 //      mã hoá password
         String encodedPassword = passwordEncoder.encode(customerDto.getPassword());
 
-//      lưu vào tk
+//      lưu thông tin đăng nhập user
         AppUser appUser = new AppUser();
         appUser.setUserName(customerDto.getEmail());
         appUser.setEncrytedPassword(encodedPassword);
         appUser.setEnabled(customerDto.isEnabled());
         customerService.saveAccountCustomer(appUser);
+        // xác nhận role user
         userRoleService.save(appUser, appRoleService.findByRoleName("ROLE_USER"));
-//
+        userService.registerUser(appUser);
         Customer customer = new Customer();
+        // lưu thông tin customer
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
         customer.setGender(customerDto.getGender());
         customer.setPhone(customerDto.getPhone());
         customer.setEmail(customerDto.getEmail());
+        customer.setAppUser(appUser);
         customerService.saveInfoCustomer(customer);
         return "login-register/login";
     }

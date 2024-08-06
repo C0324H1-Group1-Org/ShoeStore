@@ -32,8 +32,9 @@ public class ProductService implements IProductService {
 
     public int findIdCart(int idCustomer) {
         return productRepository.findIdCart(idCustomer);
+    }
       
-    public List<Product> sortProductsByPrice(){
+    public List<Product> sortProductsByPrice() {
         return productRepository.sortProductsByPrice();
     }
 
@@ -45,6 +46,5 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> findProductByName(String name) {
         return productRepository.findAllByNameContaining("%" + name + "%");
-
     }
 }

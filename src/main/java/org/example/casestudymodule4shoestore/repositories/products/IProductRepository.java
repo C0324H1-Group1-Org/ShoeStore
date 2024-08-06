@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface IProductRepository extends JpaRepository<Product, Long> {
-  
-  
+
     @Query( nativeQuery = true, value = "select p.*  from products as p order by p.price desc")
     List<Product> sortProductsByPrice();
 
@@ -47,4 +48,5 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value = "SELECT cart_id FROM cart WHERE customer_id = :idCustomer")
     int findIdCart(@Param("idCustomer") int idCustomer);
+}
 
