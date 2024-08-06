@@ -34,18 +34,17 @@ public class CartController {
 //
 //        return "redirect:/detail/{id}" + product.getId();
 //    }
-//    @GetMapping("/cart")
-//    public String cart(Model model  ) {
-//        Cart cart = cartService.findCartByCustomerId(1);
-//        float totalPrice = 0;
-//        for (CartDetail cartDetail: cart.getCartDetailList()){
-//            totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
-//        }
-//        model.addAttribute("cart" , cart);
-//        model.addAttribute("totalPrice", totalPrice);
-//        model.a
-//        return "cart";
-//}
+    @GetMapping("/cart")
+    public String cart(Model model  ) {
+        Cart cart = cartService.findCartByCustomerId(1);
+        float totalPrice = 0;
+        for (CartDetail cartDetail: cart.getCartDetailList()){
+            totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
+        }
+        model.addAttribute("cart" , cart);
+        model.addAttribute("totalPrice", totalPrice);
+        return "cart";
+}
 //    @PostMapping("/cart")
 //    public String updateCart(Model model,
 //                             @RequestParam ("id_cart") String idCart,

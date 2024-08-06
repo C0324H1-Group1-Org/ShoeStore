@@ -1,6 +1,5 @@
 package org.example.casestudymodule4shoestore.services.products;
 
-import org.example.casestudymodule4shoestore.dtos.product.ProductCategoryDTO;
 import org.example.casestudymodule4shoestore.models.Product;
 import org.example.casestudymodule4shoestore.repositories.products.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
