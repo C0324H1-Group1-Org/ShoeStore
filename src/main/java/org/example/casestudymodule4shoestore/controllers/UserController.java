@@ -1,14 +1,16 @@
 package org.example.casestudymodule4shoestore.controllers;
 
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.services.IGenerateService;
+import org.example.casestudymodule4shoestore.services.products.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,11 +18,20 @@ import java.util.Optional;
 @RequestMapping("/")
 public class UserController {
     @Autowired
-    private IGenerateService productService;
+    private IProductService productService;
 
     @GetMapping
     public String home(Model model) {
         model.addAttribute("navbar", "index");
+        List<Product> products = productService.sortProductsByPrice();
+        List<Product> pp  = new ArrayList<>();
+        pp.add(products.get(0));
+        pp.add(products.get(1));
+        pp.add(products.get(2));
+        pp.add(products.get(3));
+        pp.add(products.get(4));
+        pp.add(products.get(5));
+        model.addAttribute("products", pp );
         return "index";
     }
 
@@ -66,6 +77,22 @@ public class UserController {
             return "error/404";
         }
         return "detail";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "name", required = false) String name, Model model) {
+        model.addAttribute("navbar", "search");
+        List<Product> products = productService.findProductByName(name);
+        model.addAttribute("products", products);
+        return "/shop";
+    }
+
+    @GetMapping("/category{id}")
+    public String shopCategory(@PathVariable Integer id, Model model){
+        model.addAttribute("navbar", "category");
+        List<Product> products = (List<Product>) productService.findProductByCategory(id);
+        model.addAttribute("products", products);
+        return "/shop";
     }
 
 }
