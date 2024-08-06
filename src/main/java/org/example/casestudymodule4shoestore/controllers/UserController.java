@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,15 @@ public class UserController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("navbar", "index");
+        List<Product> products = productService.sortProductsByPrice();
+        List<Product> pp  = new ArrayList<>();
+        pp.add(products.get(0));
+        pp.add(products.get(1));
+        pp.add(products.get(2));
+        pp.add(products.get(3));
+        pp.add(products.get(4));
+        pp.add(products.get(5));
+        model.addAttribute("products", pp );
         return "index";
     }
 
@@ -68,6 +78,18 @@ public class UserController {
             return "error/404";
         }
         return "detail";
+    }
+
+    @GetMapping("/search")
+    public String search(Model model) {
+        model.addAttribute("navbar", "search");
+        return "/shop";
+    }
+
+    @GetMapping("/shop/category/{id}")
+    public String shopCategory(@PathVariable Long id, Model model){
+        model.addAttribute("navbar", "shopCategory");
+        return "/shop";
     }
 
 }

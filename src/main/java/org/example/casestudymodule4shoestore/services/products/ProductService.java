@@ -23,4 +23,9 @@ public class ProductService implements IGenerateService<Product> {
     public Optional<Product> findProductById(Long id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public List<Product> sortProductsByPrice(){
+        return productRepository.sortProductsByPrice();
+    }
 }

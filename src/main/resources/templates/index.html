@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/aos.css">
 
     <link rel="stylesheet" href="../css/style.css">
-    
+
   </head>
   <body>
   
@@ -151,7 +151,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-            <a class="block-2-item" href="#">
+            <a class="block-2-item" href="/shop/category/2">
               <figure class="image">
                 <img src="images/bo_su_tap_giay_chay_bo.jpg" alt="" class="img-fluid">
               </figure>
@@ -162,7 +162,7 @@
             </a>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-            <a class="block-2-item" href="#">
+            <a class="block-2-item" href="/shop/category/3">
               <figure class="image">
                 <img src="images/bo_su_tap_giay_the_thao.jpg" alt="" class="img-fluid">
               </figure>
@@ -173,7 +173,7 @@
             </a>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-            <a class="block-2-item" href="#">
+            <a class="block-2-item" href="/shop/category/4">
               <figure class="image">
                 <img src="images/bo_su_tap_giay_leo_nui.jpg" alt="" class="img-fluid">
               </figure>
@@ -197,66 +197,21 @@
         <div class="row">
           <div class="col-md-12">
             <div class="nonloop-block-3 owl-carousel">
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
+<!--              <th:block >-->
+                <div class="item" th:each="product,s: ${products}">
+                  <div class="block-4 text-center">
+                    <figure class="block-4-image">
+                      <img th:src="${product.image}" alt="Image placeholder" class="img-fluid">
+                    </figure>
+                    <div class="block-4-text p-4">
+                      <h4><p class="mb-0" th:text="${product.name}"> </p></h4>
+                      <a th:href="@{/detail/{id}(id=${product.id})}">Chi tiết sản phẩm</a>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="block-4 text-center">
-                  <figure class="block-4-image">
-                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="#">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+<!--              </th:block>-->
+
             </div>
           </div>
         </div>
@@ -278,7 +233,7 @@
             <h2><a href="#">Giảm giá 50% toàn bộ sản phẩm</a></h2>
             <p class="post-meta mb-4">By <a href="#">Gohan Vũ</a> <span class="block-8-sep">&bullet;</span> August 10, 2024</p>
             <p>Chương trình khuyến mại lớn nhất năm của BURNING KEY. Giảm giá toàn bộ sản phẩm lên tới 50%. Bạn đã sẵn sàng cho một mùa hè thật năng động và phong cách ??</p>
-            <p><a href="#" class="btn btn-primary btn-sm">Tôi Muốn Mua Cái Này</a></p>
+            <p><a href="/shop" class="btn btn-primary btn-sm">Tôi Muốn Mua Cái Này</a></p>
           </div>
         </div>
       </div>
@@ -297,6 +252,6 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-    
+
   </body>
 </html>
