@@ -5,19 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" th:href="@{/https://fonts.googleapis.com/css?family=Mukta:300,400,700}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" >
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet"  th:href="@{/css/aos.css}">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"  th:href="@{/css/style.css}">
     
   </head>
   <body>
@@ -72,10 +72,10 @@
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" th:each="product:${products}">
                 <div class="block-4 text-center border">
                   <figure class="block-4-image">
-                    <a href="detail"><img th:src="${product.image}" alt="Image placeholder" class="img-fluid"></a>
+                    <a th:href="@{/detail/{id}(id=${product.id})}"><img th:src="${product.image}" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="detail" th:text="${product.name}"></a></h3>
+                    <h3><a th:href="@{/detail/{id}(id=${product.id})}" th:text="${product.name}"></a></h3>
                     <p class="mb-0">Finding perfect t-shirt</p>
                     <p class="text-primary font-weight-bold" th:text="${product.price}"></p>
                   </div>
@@ -103,13 +103,19 @@
           </div>
 
           <div class="col-md-3 order-1 mb-5 mb-md-0">
+<!--            <div class="border p-4 rounded mb-4">-->
+<!--              <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại Giày</h3>-->
+<!--              <ul class="list-unstyled mb-0">-->
+<!--                <li class="mb-1"><a href="/category1" class="d-flex"><span>Sneaker</span> <span class="text-black ml-auto" >(15)</span></a></li>-->
+<!--                <li class="mb-1"><a href="/category2" class="d-flex"><span>Giày đi bộ</span> <span class="text-black ml-auto">(4)</span></a></li>-->
+<!--                <li class="mb-1"><a href="/category3" class="d-flex"><span>Giày bóng rổ</span> <span class="text-black ml-auto">(10)</span></a></li>-->
+<!--                <li class="mb-1"><a href="/category4" class="d-flex"><span>Giày leo núi</span> <span class="text-black ml-auto">(5)</span></a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
             <div class="border p-4 rounded mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Chủng Loại</h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="/category1" class="d-flex"><span>Sneaker</span> <span class="text-black ml-auto">(15)</span></a></li>
-                <li class="mb-1"><a href="/category2" class="d-flex"><span>Giày đi bộ</span> <span class="text-black ml-auto">(4)</span></a></li>
-                <li class="mb-1"><a href="/category3" class="d-flex"><span>Giày bóng rổ</span> <span class="text-black ml-auto">(10)</span></a></li>
-                <li class="mb-1"><a href="/category4" class="d-flex"><span>Giày leo núi</span> <span class="text-black ml-auto">(5)</span></a></li>
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại Giày</h3>
+              <ul class="list-unstyled mb-0" th:each="category,s: ${categories}">
+                <li class="mb-1"><a th:href="@{/category{id}(id=${category.id})}" class="d-flex"><span th:text="${category.name}"></span> <span class="text-black ml-auto">(15)</span></a></li>
               </ul>
             </div>
 
@@ -162,10 +168,10 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+                  <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
                     <a class="block-2-item" href="/category2">
                       <figure class="image">
-                        <img src="images/bo_su_tap_giay_chay_bo.jpg" alt="" class="img-fluid">
+                        <img src="images/bo_su_tap_giay_chay_bo.jpg" alt="giay-di-bo" class="img-fluid">
                       </figure>
                       <div class="text">
                         <span class="text-uppercase">BỘ SƯU TẬP</span>
@@ -173,10 +179,10 @@
                       </div>
                     </a>
                   </div>
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
+                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" >
                     <a class="block-2-item" href="/category3">
                       <figure class="image">
-                        <img src="images/bo_su_tap_giay_the_thao.jpg" alt="" class="img-fluid">
+                        <img src="images/bo_su_tap_giay_the_thao.jpg" alt="giay-the-thao" class="img-fluid">
                       </figure>
                       <div class="text">
                         <span class="text-uppercase">BỘ SƯU TẬP</span>
@@ -184,10 +190,10 @@
                       </div>
                     </a>
                   </div>
-                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
+                  <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" >
                     <a class="block-2-item" href="/category4">
                       <figure class="image">
-                        <img src="images/bo_su_tap_giay_leo_nui.jpg" alt="" class="img-fluid">
+                        <img src="images/bo_su_tap_giay_leo_nui.jpg" alt="giay-leo-nui" class="img-fluid">
                       </figure>
                       <div class="text">
                         <span class="text-uppercase">BỘ SƯU TẬP</span>

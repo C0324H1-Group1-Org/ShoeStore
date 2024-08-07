@@ -10,12 +10,7 @@ import java.util.List;
 
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
-<<<<<<< HEAD
-
-    @Query(nativeQuery = true, value = "select p.*  from products as p order by p.price desc")
-=======
     @Query( nativeQuery = true, value = "select p.*  from products as p order by p.price desc")
->>>>>>> 73754e9580eac9bd18a457a02a0f2af790b9374b
     List<Product> sortProductsByPrice();
 
 //    @Query( nativeQuery = true, value = "select p.id as id, p.name as name, p.image as image, p.price as price, c.id as categoryId, c.name as categoryName from products p join categories c on p.cat_id = c.id where c.id = :id")
@@ -54,9 +49,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value = "SELECT cart_id FROM cart WHERE customer_id = :idCustomer")
     int findIdCart(@Param("idCustomer") int idCustomer);
-<<<<<<< HEAD
-}
-=======
 }
 
->>>>>>> 73754e9580eac9bd18a457a02a0f2af790b9374b
+
