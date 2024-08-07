@@ -25,7 +25,6 @@ public class UserInforDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = userRepository.findByUserName(username);
-
 //        Lấy tất cả role của AppUser
         List<UserRole> userRoles = userRoleRepository.findAllByAppUser(appUser);
         UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser, userRoles);
