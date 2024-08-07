@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 
 @Configuration
@@ -43,13 +44,12 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable())
 //                .authorizeHttpRequests((authorizeHttpRequests) ->
 //                        authorizeHttpRequests
-//
-//                                .requestMatchers("/shop", "/login", "/about", "/contact", "/register", "/index", "/cart", "/checkout", "/logoutSuccessful").permitAll()
+//                                .requestMatchers("/shop", "/login", "/about", "/register", "/index", "/cart", "/checkout", "/logoutSuccessful").permitAll()
 //                                .requestMatchers("/css/**", "/js/**", "/images/**", "/scss/**", "/fonts/**").permitAll())
 ////                Config các đường dẫn bắt buộc cần đăng nhập
 //                .authorizeHttpRequests((authorizeHttpRequests) ->
 //                        authorizeHttpRequests
-//                                .requestMatchers("/logout").authenticated()
+//                                .requestMatchers("/logout", "/contact").authenticated()
 //                                .anyRequest().permitAll()
 //                )
 //               Cấu hình lại form login
@@ -62,10 +62,10 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/shop"))
                 .logout((logout) ->
-                        logout.deleteCookies("remove")
+                        logout.deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(false)
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/login"))
+                                .logoutSuccessUrl("/shop"))
                 .rememberMe((remember) ->
                         remember.rememberMeParameter("remember-me")
                                 .tokenValiditySeconds(60 * 60 * 24 * 365))
@@ -74,5 +74,6 @@ public class SecurityConfig {
                                 .accessDeniedPage("/403"));
         return http.build();
     }
+
 
 }
