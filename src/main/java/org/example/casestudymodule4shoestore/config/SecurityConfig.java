@@ -60,7 +60,7 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .failureUrl("/login?error=true")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/shop"))
+                                .defaultSuccessUrl("/shop",true))
                 .logout((logout) ->
                         logout.deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(false)
