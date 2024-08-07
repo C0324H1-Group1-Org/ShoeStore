@@ -152,7 +152,7 @@
                 </div> -->
                 <p>Chào, Admin</p>
             </div>
-            <form action="create-product"  th:object="${product}" method="post">
+            <form th:action="@{/admin/save-product}"  th:object="${product}" method="post">
             <div class="details" style="margin-top: 10px;">
 
                 <div class="recentOrders">

@@ -75,7 +75,7 @@
                     <a th:href="@{/detail/{id}(id=${product.id})}"><img th:src="${product.image}" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="detail" th:text="${product.name}"></a></h3>
+                    <h3><a th:href="@{/detail/{id}(id=${product.id})}" th:text="${product.name}"></a></h3>
                     <p class="mb-0">Finding perfect t-shirt</p>
                     <p class="text-primary font-weight-bold" th:text="${product.price}"></p>
                   </div>

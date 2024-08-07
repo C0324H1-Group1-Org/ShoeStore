@@ -39,7 +39,7 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "idProduct")
+    @OneToMany(mappedBy = "idProduct",cascade = CascadeType.REMOVE)
     private List<ProductSize> productSizes;
 
 }

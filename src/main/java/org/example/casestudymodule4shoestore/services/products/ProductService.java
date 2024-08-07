@@ -7,6 +7,9 @@ import org.example.casestudymodule4shoestore.dtos.product.CartDTO;
 import org.example.casestudymodule4shoestore.models.Product;
 import org.example.casestudymodule4shoestore.repositories.products.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +42,9 @@ public class ProductService implements IProductService {
     public Product save(Product product){
         return productRepository.save(product);
     }
+    public void remove(Long id){
+        productRepository.deleteById(id);
+    }
 
     public List<Size> findAllSize(){
         return sizeRepository.findAll();
@@ -61,6 +67,7 @@ public class ProductService implements IProductService {
 
     public int findIdCart(int idCustomer) {
         return productRepository.findIdCart(idCustomer);
+    }
 
     public List<Product> sortProductsByPrice(){
         return productRepository.sortProductsByPrice();
@@ -69,6 +76,13 @@ public class ProductService implements IProductService {
     @Override
     public Iterable<Product> findProductByCategory(Integer id) {
         return productRepository.findAllByCat_Id(id);
+    }
+
+    @Override
+    public Page<Product> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1,pageSize);
+        return productRepository.findAll(pageable);
+
     }
 
     @Override
