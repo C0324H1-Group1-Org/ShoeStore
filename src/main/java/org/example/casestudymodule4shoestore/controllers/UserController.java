@@ -39,6 +39,7 @@ public class UserController {
 
     @GetMapping("/shop")
     public String shop(Model model) {
+        model.addAttribute("navbar", "shop");
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         List<Category> categories = categoryService.findAll();
@@ -77,6 +78,8 @@ public class UserController {
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
+            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
+            model.addAttribute("productInCategory", productInCategory);
         } else {
             return "error/404";
         }
