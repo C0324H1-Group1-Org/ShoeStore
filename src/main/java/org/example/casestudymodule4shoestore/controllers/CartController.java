@@ -18,39 +18,39 @@ import java.util.Optional;
 
 @Controller
 public class CartController {
-    @Autowired
-    private  CartService cartService;
-//    @PostMapping("/addCart")
-//    public String addCart(@ModelAttribute("product") Product product,
-//                          @RequestParam("quantity") int quantity,
-//                          RedirectAttributes redirectAttributes) {
-//        if (product.getId().describeConstable().isPresent()) {
-//
-//        } else {
-//            redirectAttributes.addFlashAttribute("product", product);
-//            redirectAttributes.addFlashAttribute("quantity", quantity);
-//            redirectAttributes.addFlashAttribute("message", "Thêm vào giỏ hàng thành công");
+//    @Autowired
+//    private  CartService cartService;
+////    @PostMapping("/addCart")
+////    public String addCart(@ModelAttribute("product") Product product,
+////                          @RequestParam("quantity") int quantity,
+////                          RedirectAttributes redirectAttributes) {
+////        if (product.getId().describeConstable().isPresent()) {
+////
+////        } else {
+////            redirectAttributes.addFlashAttribute("product", product);
+////            redirectAttributes.addFlashAttribute("quantity", quantity);
+////            redirectAttributes.addFlashAttribute("message", "Thêm vào giỏ hàng thành công");
+////        }
+////
+////        return "redirect:/detail/{id}" + product.getId();
+////    }
+//    @GetMapping("/cart")
+//    public String cart(Model model  ) {
+//        Cart cart = cartService.findCartByCustomerId(1);
+//        float totalPrice = 0;
+//        for (CartDetail cartDetail: cart.getCartDetailList()){
+//            totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
 //        }
-//
-//        return "redirect:/detail/{id}" + product.getId();
+//        model.addAttribute("cart" , cart);
+//        model.addAttribute("totalPrice", totalPrice);
+//        model.a
+//        return "cart";
+//}
+//    @PostMapping("/cart")
+//    public String updateCart(Model model,
+//                             @RequestParam ("id_cart") String idCart,
+//                             @RequestParam("quantity")int quantity){
+//        Cart cart =
 //    }
-    @GetMapping("/cart")
-    public String cart(Model model  ) {
-        Cart cart = cartService.findCartByCustomerId(1);
-        float totalPrice = 0;
-        for (CartDetail cartDetail: cart.getCartDetailList()){
-            totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
-        }
-        model.addAttribute("cart" , cart);
-        model.addAttribute("totalPrice", totalPrice);
-        model.a
-        return "cart";
-}
-    @PostMapping("/cart")
-    public String updateCart(Model model,
-                             @RequestParam ("id_cart") String idCart,
-                             @RequestParam("quantity")int quantity){
-        Cart cart =
-    }
 
 }
