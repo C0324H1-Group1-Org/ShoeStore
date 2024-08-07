@@ -41,8 +41,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Iterable<Product> findProductByCategory(Long id) {
-        return productRepository.findAllByCat_Id(id);
+    public Page<Product> findProductByCategory(Long id,Pageable pageable) {
+        return productRepository.findAllByCat_Id(id,pageable);
     }
 
     @Override

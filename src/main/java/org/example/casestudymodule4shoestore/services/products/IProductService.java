@@ -15,7 +15,7 @@ public interface IProductService extends IGenerateService<Product> {
 
     List<Product> findProductByName(String keyword);
 
-    Iterable<Product> findProductByCategory(Long id);
+    Page<Product> findProductByCategory(Long id, Pageable pageable);
 
     Page<Product> findAll(Pageable pageable);
 }

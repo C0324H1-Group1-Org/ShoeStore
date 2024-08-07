@@ -13,22 +13,17 @@
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
     <link rel="stylesheet" href="css/aos.css">
-
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .pagination a {
-            text-decoration: none;
-            color: blue;
-        }
-
         .pagination .active {
-            color: red;
+            color: #ff5757;
+        }
+        .pagination .disabled {
+            pointer-events: none;
+            color: #ccc;
         }
     </style>
-
 </head>
 <body>
 
@@ -48,44 +43,15 @@
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-9 order-2">
-
-                    <!--            <div class="row">-->
-                    <!--              <div class="col-md-12 mb-5">-->
-                    <!--                <div class="float-md-left mb-4"><h2 class="text-black h5"></h2></div>-->
-                    <!--                <div class="d-flex">-->
-                    <!--                  <div class="dropdown mr-1 ml-md-auto">-->
-                    <!--                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                    <!--                      MỚI NHẤT-->
-                    <!--                    </button>-->
-                    <!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">-->
-                    <!--                      <a class="dropdown-item" href="#">Thể loại 1</a>-->
-                    <!--                      <a class="dropdown-item" href="#">Thể loại 2</a>-->
-                    <!--                      <a class="dropdown-item" href="#">Thể loại 3</a>-->
-                    <!--                    </div>-->
-                    <!--                  </div>-->
-                    <!--                  <div class="btn-group">-->
-                    <!--                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Sắp Xếp</button>-->
-                    <!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">-->
-                    <!--                      <a class="dropdown-item" href="#">Đề Xuấ</a>-->
-                    <!--                      <a class="dropdown-item" href="#">Tên, A-Z</a>-->
-                    <!--                      <a class="dropdown-item" href="#">Tên, Z-z</a>-->
-                    <!--                      <div class="dropdown-divider"></div>-->
-                    <!--                      <a class="dropdown-item" href="#">Giá, Thấp Đến Cao</a>-->
-                    <!--                      <a class="dropdown-item" href="#">Giá, Cao Xuống Thấp</a>-->
-                    <!--                    </div>-->
-                    <!--                  </div>-->
-                    <!--                </div>-->
-                    <!--              </div>-->
-                    <!--            </div>-->
                     <div class="row mb-5">
-                        <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" th:each="product:${products_page}">
+                        <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up" th:each="product : ${products_page}">
                             <div class="block-4 text-center border">
                                 <figure class="block-4-image">
-                                    <a href="detail"><img th:src="${product.image}" alt="Image placeholder"
-                                                          class="img-fluid"></a>
+                                    <a th:href="@{/detail(id=${product.id})}"><img th:src="${product.image}" alt="Image placeholder"
+                                                                                   class="img-fluid"></a>
                                 </figure>
                                 <div class="block-4-text p-4">
-                                    <h3><a href="detail" class="name-product" th:text="${product.name}"></a></h3>
+                                    <h3><a th:href="@{/detail(id=${product.id})}" class="name-product" th:text="${product.name}"></a></h3>
                                     <p class="mb-0">Finding perfect t-shirt</p>
                                     <p class="text-primary font-weight-bold"
                                        th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} + ' ₫'"></p>
@@ -97,18 +63,18 @@
                         <div class="col-md-12 d-flex justify-content-center">
                             <div class="site-block-27">
                                 <ul class="pagination" id="pagination">
-                                    <li id="previous" class="page-item " th:if="${products_page.hasPrevious()}">
-                                        <a class="page-icon" th:href="@{/shop(page=${products_page.number - 1})}">&lt;</a>
+                                    <li id="previous" class="page-item" th:if="${products_page.hasPrevious()}">
+                                        <a class="page-icon" th:href="@{${paginationPreviousUrl}}">&lt;</a>
                                     </li>
                                     <li th:each="pageNum, iterStat : ${#numbers.sequence(0, products_page.totalPages - 1)}">
-                                        <a th:href="@{/shop(page=${pageNum})}"
+                                        <a th:href="@{${paginationBaseUrl}(page=${pageNum})}"
                                            class="page-icon"
                                            th:text="${pageNum + 1}"
                                            th:classappend="${pageNum == products_page.number} ? 'active' : ''"
                                            data-page="${pageNum}"></a>
                                     </li>
                                     <li id="next" class="page-item" th:if="${products_page.hasNext()}">
-                                        <a class="page-icon" th:href="@{/shop(page=${products_page.number + 1})}">&gt;</a>
+                                        <a class="page-icon" th:href="@{${paginationNextUrl}}">&gt;</a>
                                     </li>
                                 </ul>
                             </div>
@@ -119,63 +85,29 @@
                     <div class="border p-4 rounded mb-4">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Phân Loại</h3>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-1"><a th:href="@{/category{id}(id=${entry['c_id']})}" class="d-flex"
-                                                th:each="entry : ${categoryProductCounts}"><span
-                                    th:text="${entry['c_name']}"></span>
-                                <span class="text-black ml-auto">
-                                    <span th:text="'('+${entry['product_count']} +')'"></span>
-                                </span></a></li>
+                            <li class="mb-1" th:each="entry : ${categoryProductCounts}">
+                                <a th:href="@{/category{id}(id=${entry['c_id']})}" class="d-flex"
+                                   th:data-category-id="${entry['c_id']}">
+                                    <span th:text="${entry['c_name']}"></span>
+                                    <span class="text-black ml-auto">
+                                        <span th:text="'(' + ${entry['product_count']} + ')'"></span>
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <!--            <div class="border p-4 rounded mb-4">-->
-                    <!--              <div class="mb-4">-->
-                    <!--                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>-->
-                    <!--                <div id="slider-range" class="border-primary"></div>-->
-                    <!--                <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />-->
-                    <!--              </div>-->
-
-                    <!--              <div class="mb-4">-->
-                    <!--                <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>-->
-                    <!--                <label for="s_sm" class="d-flex">-->
-                    <!--                  <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>-->
-                    <!--                </label>-->
-                    <!--                <label for="s_md" class="d-flex">-->
-                    <!--                  <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>-->
-                    <!--                </label>-->
-                    <!--                <label for="s_lg" class="d-flex">-->
-                    <!--                  <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>-->
-                    <!--                </label>-->
-                    <!--              </div>-->
-
-                    <!--              <div class="mb-4">-->
-                    <!--                <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>-->
-                    <!--                <a href="#" class="d-flex color-item align-items-center" >-->
-                    <!--                  <span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Red (2,429)</span>-->
-                    <!--                </a>-->
-                    <!--                <a href="#" class="d-flex color-item align-items-center" >-->
-                    <!--                  <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Green (2,298)</span>-->
-                    <!--                </a>-->
-                    <!--                <a href="#" class="d-flex color-item align-items-center" >-->
-                    <!--                  <span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Blue (1,075)</span>-->
-                    <!--                </a>-->
-                    <!--                <a href="#" class="d-flex color-item align-items-center" >-->
-                    <!--                  <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Purple (1,075)</span>-->
-                    <!--                </a>-->
-                    <!--              </div>-->
-
-                    <!--            </div>-->
-
                 </div>
             </div>
         </div>
     </div>
     <footer th:replace="layout/footer.html"></footer>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const currentPage = parseInt(urlParams.get('page')) || 0;
-        const pageLinks = document.querySelectorAll('.pagination .page-link');
+        const pageLinks = document.querySelectorAll('.pagination .page-icon');
         pageLinks.forEach(link => {
             const page = parseInt(link.getAttribute('data-page'));
             if (page === currentPage) {
@@ -185,13 +117,14 @@
         const previousLink = document.getElementById('previous');
         const nextLink = document.getElementById('next');
         if (currentPage === 0) {
-            previousLink.style.display = 'none';
+            previousLink.classList.add('disabled');
         }
         if (currentPage === pageLinks.length - 1) {
-            nextLink.style.display = 'none';
+            nextLink.classList.add('disabled');
         }
     });
 </script>
+
 <script th:src="@{js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{js/jquery-ui.js}"></script>
 <script th:src="@{js/popper.min.js}"></script>
@@ -199,7 +132,6 @@
 <script th:src="@{js/owl.carousel.min.js}"></script>
 <script th:src="@{js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{js/aos.js}"></script>
-
 <script th:src="@{js/main.js}"></script>
 
 </body>

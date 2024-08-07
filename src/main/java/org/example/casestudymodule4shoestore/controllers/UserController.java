@@ -51,8 +51,11 @@ public class UserController {
     @GetMapping("/shop")
     public String shop(Model model,
                        @RequestParam(defaultValue = "0") int page) {
-        Page<Product> products = productService.findAll( PageRequest.of(page, 6));
+        Page<Product> products = productService.findAll(PageRequest.of(page, 6));
         model.addAttribute("products_page", products);
+        model.addAttribute("paginationBaseUrl", "/shop");
+        model.addAttribute("paginationPreviousUrl", products.hasPrevious() ? "/shop?page=" + (products.getNumber() - 1) : "#");
+        model.addAttribute("paginationNextUrl", products.hasNext() ? "/shop?page=" + (products.getNumber() + 1) : "#");
         return "shop";
     }
 
@@ -100,11 +103,16 @@ public class UserController {
     }
 
     @GetMapping("/category{id}")
-    public String shopCategory(@PathVariable Long id, Model model){
+    public String shopCategory(@PathVariable Long id,
+                               Model model,
+                               @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("navbar", "category");
-        List<Product> products = (List<Product>) productService.findProductByCategory(id);
-        model.addAttribute("products", products);
-        return "/shop";
+        Page<Product> products = productService.findProductByCategory(id, PageRequest.of(page, 6));
+        model.addAttribute("products_page", products);
+        model.addAttribute("paginationBaseUrl", "/category" + id);
+        model.addAttribute("paginationPreviousUrl", products.hasPrevious() ? "/category" + id + "?page=" + (products.getNumber() - 1) : "#");
+        model.addAttribute("paginationNextUrl", products.hasNext() ? "/category" + id + "?page=" + (products.getNumber() + 1) : "#");
+        return "shop";
     }
 
 }
