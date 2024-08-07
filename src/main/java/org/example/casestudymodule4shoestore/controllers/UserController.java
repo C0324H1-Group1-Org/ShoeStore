@@ -3,6 +3,9 @@ package org.example.casestudymodule4shoestore.controllers;
 import org.example.casestudymodule4shoestore.models.Product;
 import org.example.casestudymodule4shoestore.services.products.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +39,11 @@ public class UserController {
     }
 
     @GetMapping("/shop")
-    public String shop(Model model) {
-        List<Product> products = productService.findAll();
+    public String shop(Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
+        Page<Product> products = productService.getAll(pageNo);
         model.addAttribute("products", products);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "shop";
     }
 
