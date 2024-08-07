@@ -1,17 +1,19 @@
 package org.example.casestudymodule4shoestore.controllers;
 
+import org.example.casestudymodule4shoestore.models.Category;
 import org.example.casestudymodule4shoestore.models.Product;
+import org.example.casestudymodule4shoestore.services.category.ICategoryService;
 import org.example.casestudymodule4shoestore.services.products.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -19,6 +21,17 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
+
+    @ModelAttribute("categories")
+    private Iterable<Category> showAllCategory(Model model) {
+        Iterable<Category> categories = categoryService.findAll();
+        List<Map<String, Object>> categoryProductCounts = categoryService.countProductsByCategory();
+        model.addAttribute("categoryProductCounts", categoryProductCounts);
+        return categories;
+    }
 
     @GetMapping
     public String home(Model model) {
@@ -36,9 +49,10 @@ public class UserController {
     }
 
     @GetMapping("/shop")
-    public String shop(Model model) {
-        List<Product> products = productService.findAll();
-        model.addAttribute("products", products);
+    public String shop(Model model,
+                       @RequestParam(defaultValue = "0") int page) {
+        Page<Product> products = productService.findAll( PageRequest.of(page, 6));
+        model.addAttribute("products_page", products);
         return "shop";
     }
 
@@ -68,7 +82,6 @@ public class UserController {
     @GetMapping("/detail/{id}")
     public String showProductDetail(@PathVariable("id") Long id, Model model) {
         Optional<Product> product = productService.findProductById(id);
-
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
@@ -87,7 +100,7 @@ public class UserController {
     }
 
     @GetMapping("/category{id}")
-    public String shopCategory(@PathVariable Integer id, Model model){
+    public String shopCategory(@PathVariable Long id, Model model){
         model.addAttribute("navbar", "category");
         List<Product> products = (List<Product>) productService.findProductByCategory(id);
         model.addAttribute("products", products);
