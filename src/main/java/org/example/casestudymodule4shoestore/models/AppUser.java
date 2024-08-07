@@ -27,6 +27,9 @@ public class AppUser {
 
     @Column(name = "enabled", length = 1, nullable = false)
     private boolean enabled;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 73754e9580eac9bd18a457a02a0f2af790b9374b
 }

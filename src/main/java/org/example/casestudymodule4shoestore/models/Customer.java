@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 
 @Data
@@ -23,5 +22,14 @@ public class Customer {
     private String phone;
     private String email;
 
+<<<<<<< HEAD
 
 }
+=======
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private AppUser appUser;
+}
+
+
+>>>>>>> 73754e9580eac9bd18a457a02a0f2af790b9374b
