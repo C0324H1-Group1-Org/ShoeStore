@@ -45,8 +45,10 @@
 
     <div class="site-section">
       <div class="container">
-        <div class="row mb-5">
-          <form class="col-md-12" method="post">
+        <div class="row mb-5" th:unless="${emptyCartMessage}">
+          <form class="col-md-12" method="post" th:object="${cart}" id="formUpdate" th:action="@{/update-cart}">
+            <input type="hidden" th:field="*{cart_id}">
+            <input type="hidden" th:field="*{customer}">
             <div class="site-blocks-table">
               <table class="table table-bordered">
                 <thead>
@@ -61,44 +63,64 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="item: ${cart.cartDetailList}">
+                  <tr th:each="item,itemStat: *{cartDetailList}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].cartDetailId.idSize}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].cartDetailId.idProduct}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].cartDetailId.idCart}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].idCart}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].idProduct}">
+                    <input type="hidden" th:field="*{cartDetailList[__${itemStat.index}__].idSize}">
                     <td class="product-thumbnail">
                       <img th:src="${item.idProduct.image}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
                       <h2 class="h5 text-black" th:text="${item.idProduct.name}"></h2>
                     </td>
-                    <td id="price1" th:data-price1="${item.idProduct.price}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.idProduct.price, 0, 'COMMA', 0, 'POINT')}"></td>
                     <td>
                       <div class="input-group mb-3" style="max-width: 120px;">
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary js-btn-minus" type="button" style="font-size: 0.5rem; padding: 0.25rem 0.5rem;">&minus;</button>
                         </div>
-                        <input type="text" class="form-control text-center" th:value="*{item.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <input type="text" class="form-control text-center" th:field="*{cartDetailList[__${itemStat.index}__].quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         <div class="input-group-append">
                           <button class="btn btn-outline-primary js-btn-plus" type="button" style="font-size: 0.5rem; padding: 0.25rem 0.5rem;">&plus;</button>
                         </div>
                       </div>
-                    <td th:text="${item.size}"></td>
+                    <td th:text="${item.idSize.number}"></td>
                     </td>
-                    <td  id="price2" th:data-price2="${item.quantity * item.idProduct.price}"></td>
-                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                    <td th:text="${#numbers.formatDecimal(item.idProduct.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
+                    <td>
+                      <button class="btn btn-primary btn-sm js-delete-item"
+                              th:attr="data-id-product=${item.idProduct.id},data-id-size=${item.idSize.id},data-id-cart=${item.idCart.cart_id}">X</button>
+                    </td>
+
                   </tr>
 
                 </tbody>
               </table>
             </div>
           </form>
+          <form id="formDelete" method="post" action="/delete-cart-item">
+            <input type="hidden" name="idProduct" id="delete-idProduct">
+            <input type="hidden" name="idSize" id="delete-idSize">
+            <input type="hidden" name="idCart" id="delete-idCart">
+            <button type="submit" style="display: none;"></button>
+          </form>
+
+        </div>
+        <div class="row mb-5" th:if="${emptyCartMessage}">
+          <h4 th:text="${emptyCartMessage}"></h4>
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <div class="row mb-5">
-              <div class="col-md-6 mb-3 mb-md-0">
-                <button class="btn btn-primary btn-sm btn-block">Cập Nhật Giỏ Hàng</button>
+              <div class="col-md-6 mb-3 mb-md-0" th:unless="${emptyCartMessage}">
+                <button type="submit" class="btn btn-primary btn-sm btn-block" form="formUpdate">Cập Nhật Giỏ Hàng</button>
               </div>
               <div class="col-md-6">
-                <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.location.href='http://localhost:8080'">Tiếp Tục Mua Hàng</button>
+                <button class="btn btn-outline-primary btn-sm btn-block" onclick="window.location.href='http://localhost:8080/shop'">Tiếp Tục Mua Hàng</button>
               </div>
             </div>
 <!--            <div class="row">-->
@@ -114,7 +136,7 @@
 <!--              </div>-->
 <!--            </div>-->
           </div>
-          <div class="col-md-6 pl-5">
+          <div class="col-md-6 pl-5" th:unless="${emptyCartMessage}">
             <div class="row justify-content-end">
               <div class="col-md-7">
                 <div class="row">
@@ -135,7 +157,7 @@
                     <span class="text-black">Tổng</span>
                   </div>
                   <div class="col-md-6 text-right">
-                    <strong class="text-black" id="price" th:data-price="${totalPrice}"></strong>
+                    <strong class="text-black" th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></strong>
                   </div>
                 </div>
 
@@ -164,21 +186,27 @@
 
   <script src="js/main.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const priceElement = document.getElementById('price');
-      const price = parseFloat(priceElement.getAttribute('data-price'));
-      priceElement.textContent = formatCurrency(price);
-    })
-    document.addEventListener('DOMContentLoaded', function() {
-      const priceElement = document.getElementById('price1');
-      const price1 = parseFloat(priceElement.getAttribute('data-price1'));
-      priceElement.textContent = formatCurrency(price1);
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      const priceElement = document.getElementById('price2');
-      const price2 = parseFloat(priceElement.getAttribute('data-price2'));
-      priceElement.textContent = formatCurrency(price2);
+      document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.js-delete-item').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault(); // Ngăn không cho form gửi theo cách truyền thống
+
+          // Lấy dữ liệu từ thuộc tính data
+          const idProduct = this.getAttribute('data-id-product');
+          const idSize = this.getAttribute('data-id-size');
+          const idCart = this.getAttribute('data-id-cart');
+
+          // Cập nhật giá trị của các trường trong form xóa
+          document.getElementById('delete-idProduct').value = idProduct;
+          document.getElementById('delete-idSize').value = idSize;
+          document.getElementById('delete-idCart').value = idCart;
+
+          // Gửi form xóa
+          document.getElementById('formDelete').submit();
+        });
+      });
     });
   </script>
+
   </body>
 </html>

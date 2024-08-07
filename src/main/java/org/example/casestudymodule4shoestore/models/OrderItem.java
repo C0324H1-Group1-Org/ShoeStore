@@ -22,6 +22,11 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @MapsId("sizeId")
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private Size size;
+
     @Column(name = "quantity")
     private Integer quantity;
 

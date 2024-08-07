@@ -56,10 +56,6 @@ public class UserController {
         return "contact";
     }
 
-    @GetMapping("/checkout")
-    public String checkout() {
-        return "checkout";
-    }
 
     @GetMapping("/thankyou")
     public String thankYou() {
