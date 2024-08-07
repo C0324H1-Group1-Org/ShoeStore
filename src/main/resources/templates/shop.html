@@ -115,7 +115,7 @@
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Loại Giày</h3>
               <ul class="list-unstyled mb-0" th:each="category,s: ${categories}">
-                <li class="mb-1"><a th:href="@{/category{id}(id=${category.id})}" class="d-flex"><span th:text="${category.name}"></span> <span class="text-black ml-auto">(15)</span></a></li>
+                <li class="mb-1"><a th:href="@{/category{id}(id=${category.id})}" class="d-flex"><span th:text="${category.name}"></span> <span class="text-black ml-auto"></span></a></li>
               </ul>
             </div>
 
