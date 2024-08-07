@@ -39,13 +39,11 @@ public class UserController {
     }
 
     @GetMapping("/shop")
-    public String shop(@RequestParam(value = "page", required = false, defaultValue = "1")int page, Model model) {
-        Pageable pageable = PageRequest.of(page-1, 5);
-        Page<Product> products = productService.findAllPagi(pageable);
-        List<Product> productList = products.getContent();
-        model.addAttribute("products", productList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", products.getTotalPages());
+    public String shop(Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
+        Page<Product> products = productService.getAll(pageNo);
+        model.addAttribute("products", products);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "shop";
     }
 

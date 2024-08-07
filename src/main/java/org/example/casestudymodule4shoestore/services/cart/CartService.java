@@ -22,11 +22,6 @@ public class CartService implements IGenerateService<Cart> {
     }
 
     @Override
-    public Page<Cart> findAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
     public Optional<Product> findProductById(Long id) {
         return Optional.empty();
     }
