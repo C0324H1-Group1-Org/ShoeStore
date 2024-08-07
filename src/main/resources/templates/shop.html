@@ -75,9 +75,9 @@
                     <a href="detail"><img th:src="${product.image}" alt="Image placeholder" class="img-fluid"></a>
                   </figure>
                   <div class="block-4-text p-4">
-                    <h3><a href="detail" th:text="${product.name}"></a></h3>
+                    <h3><a href="detail" class="name-product" th:text="${product.name}"></a></h3>
                     <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold" th:text="${product.price}"></p>
+                    <p class="text-primary font-weight-bold" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></p>
                   </div>
                 </div>
               </div>
@@ -104,7 +104,7 @@
 
           <div class="col-md-3 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Chủng Loại</h3>
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Phân Loại</h3>
               <ul class="list-unstyled mb-0">
                 <li class="mb-1"><a href="/category1" class="d-flex"><span>Sneaker</span> <span class="text-black ml-auto">(15)</span></a></li>
                 <li class="mb-1"><a href="/category2" class="d-flex"><span>Giày đi bộ</span> <span class="text-black ml-auto">(4)</span></a></li>

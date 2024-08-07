@@ -203,14 +203,11 @@
                       <img th:src="${product.image}" alt="Image placeholder" class="img-fluid">
                     </figure>
                     <div class="block-4-text p-4">
-                      <h4><p class="mb-0" th:text="${product.name}"> </p></h4>
+                      <h4><p class="mb-0 name-product" th:text="${product.name}"> </p></h4>
                       <a th:href="@{/detail/{id}(id=${product.id})}">Chi tiết sản phẩm</a>
-
                     </div>
                   </div>
                 </div>
-
-
             </div>
           </div>
         </div>

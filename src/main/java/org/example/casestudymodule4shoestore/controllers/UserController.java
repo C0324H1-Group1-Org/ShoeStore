@@ -43,7 +43,6 @@ public class UserController {
     }
 
 
-
     @GetMapping("/about")
     public String about(Model model) {
         model.addAttribute("navbar", "about");

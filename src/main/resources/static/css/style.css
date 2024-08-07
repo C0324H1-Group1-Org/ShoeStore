@@ -659,10 +659,7 @@ a {
   position: relative; }
   .site-block-top-search .icon {
     position: absolute;
-    left: 0;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%); }
   .site-block-top-search input {
     padding-left: 40px;
@@ -752,3 +749,10 @@ a {
   border-radius: 50%;
   margin-bottom: 20px; }
 
+.name-product {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
