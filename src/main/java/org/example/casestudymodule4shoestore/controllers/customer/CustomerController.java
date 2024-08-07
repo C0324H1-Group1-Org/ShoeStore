@@ -77,8 +77,8 @@ public class CustomerController {
         appUser.setEnabled(customerDto.isEnabled());
         customerService.saveAccountCustomer(appUser);
         // xác nhận role user
-        userService.registerUser(appUser);
         userRoleService.save(appUser, appRoleService.findByRoleName("ROLE_USER"));
+        userService.registerUser(appUser);
         Customer customer = new Customer();
         // lưu thông tin customer
         customer.setFirstName(customerDto.getFirstName());

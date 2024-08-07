@@ -14,13 +14,11 @@ public class UserInfoUserDetails implements UserDetails {
 
     private String username;
     private String password;
-    private boolean enabled;
     private List<GrantedAuthority> authorities;
 
     public UserInfoUserDetails(AppUser appUser, List<UserRole> userRoles) {
         username = appUser.getUserName();
         password = appUser.getEncrytedPassword();
-        enabled = appUser.isEnabled();
         authorities = new ArrayList<>();
         if (userRoles != null) {
             for (UserRole userRole : userRoles) {
@@ -63,6 +61,6 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return true;
     }
 }

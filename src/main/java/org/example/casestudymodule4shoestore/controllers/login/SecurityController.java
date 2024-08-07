@@ -1,5 +1,6 @@
 package org.example.casestudymodule4shoestore.controllers.login;
 
+import org.example.casestudymodule4shoestore.services.login.IUserService;
 import org.example.casestudymodule4shoestore.services.login.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,7 @@ public class SecurityController {
     private UserService userService;
 
     @GetMapping(value = "/login")
-    public String loginPage(Model model,
-                            @RequestParam(value = "error", defaultValue = "") String error) {
+    public String loginPage(Model model, @RequestParam(value = "error", defaultValue = "")String error) {
         model.addAttribute("error", error);
         return "login-register/login";
     }
