@@ -2,7 +2,9 @@ package org.example.casestudymodule4shoestore.services.login;
 
 import org.example.casestudymodule4shoestore.dtos.login.UserInfoUserDetails;
 import org.example.casestudymodule4shoestore.models.AppUser;
+import org.example.casestudymodule4shoestore.models.Customer;
 import org.example.casestudymodule4shoestore.models.UserRole;
+import org.example.casestudymodule4shoestore.repositories.customer.ICustomerRepo;
 import org.example.casestudymodule4shoestore.repositories.login.IUserRepository;
 import org.example.casestudymodule4shoestore.repositories.login.IUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 public class UserInforDetailService implements UserDetailsService {
 
     @Autowired
+    private ICustomerRepo customerRepo;
+    @Autowired
     private IUserRepository userRepository;
 
     @Autowired
@@ -26,8 +30,9 @@ public class UserInforDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = userRepository.findByUserName(username);
 //        Lấy tất cả role của AppUser
+        Customer customer = customerRepo.findCustomerByAppUser(appUser);
         List<UserRole> userRoles = userRoleRepository.findAllByAppUser(appUser);
-        UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser, userRoles);
+        UserInfoUserDetails infoUserDetails = new UserInfoUserDetails(appUser, userRoles,customer);
         return infoUserDetails;
     }
 

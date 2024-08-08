@@ -6,6 +6,7 @@ import org.example.casestudymodule4shoestore.services.IGenerateService;
 import org.example.casestudymodule4shoestore.services.cart.CartService;
 import org.example.casestudymodule4shoestore.services.cart.OrderService;
 import org.example.casestudymodule4shoestore.services.customer.CustomerService;
+import org.example.casestudymodule4shoestore.services.login.EmailService;
 import org.example.casestudymodule4shoestore.services.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,16 +35,19 @@ public class CartController {
     private CustomerService customerService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private EmailService emailService;
     @PostMapping("/addCart")
     public String addCart(@RequestParam("id") Long productId,
                           @RequestParam("quantity") int quantity,
-                          @RequestParam("size") int size,
+                          @RequestParam(value = "size") int size,
                           RedirectAttributes redirectAttributes) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal().equals("anonymousUser")) {
             return "redirect:/login";
         }
+
 //         Lấy thông tin CustomUserDetails
         String userName = authentication.getName();
         Customer customer = customerService.findCustomerByUserName(userName);
@@ -88,6 +93,8 @@ public class CartController {
                             cartDetailNew.setCartDetailId(cartDetailId);
                             cartDetailNew.setQuantity(quantity);
                             productService.saveCartDetail(cartDetailNew);
+                            redirectAttributes.addFlashAttribute("message", "Thêm vào giỏ hàng thành công");
+                            return "redirect:/detail/" + productId;
                         }
                     }
                 }
@@ -162,6 +169,7 @@ public class CartController {
                 totalPrice += cartDetail.getQuantity() * cartDetail.getIdProduct().getPrice();
             }
         }
+        order.setTotalPrice(totalPrice);
         model.addAttribute("order",order);
         model.addAttribute("cart",cart);
         model.addAttribute("totalPrice",totalPrice);
@@ -195,10 +203,61 @@ public class CartController {
             orderItem.setProduct(cartDetail.getIdProduct());
             orderItem.setQuantity(cartDetail.getQuantity());
             orderItemList.add(orderItem);
+
+            for (ProductSize productSize : cartDetail.getIdProduct().getProductSizes()){
+                if (productSize.getIdProduct().getId().equals(cartDetail.getIdProduct().getId()) && productSize.getIdSize().getId().equals(cartDetail.getIdSize().getId())){
+                    productSize.setQuantity(productSize.getQuantity() - cartDetail.getQuantity());
+                    productService.saveProductSize(productSize);
+                    break;
+                }
+            }
+
         }
+        String email = buildEmailContent(order,orderItemList);
+        emailService.sendEmail(customer.getEmail(),"Xác nhận đơn đặt hàng - Burning Key Store",email);
         orderService.saveOrderItem(orderItemList);
         cartService.remove(cart);
         return "/thankyou";
+    }
+
+    private String buildEmailContent(Order order, List<OrderItem> orderItemList) {
+        StringBuilder sb = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
+
+
+        sb.append("<html><body>");
+        sb.append("<h1>Xin chào, ").append(order.getCustomer().getFirstName()).append("</h1>");
+        sb.append("<p>Cảm ơn bạn đã đặt hàng. Dưới đây là thông tin chi tiết về sản phẩm bạn đã đặt hàng:</p>");
+        sb.append("<table border='1' cellpadding='10'>");
+        sb.append("<tr><th>Tên sản phẩm</th><th>Size</th><th>Đơn Giá</th><th>Số lượng</th><th>Tạm tính</th></tr>");
+
+        for (OrderItem orderItem : orderItemList) {
+            sb.append("<tr>");
+            sb.append("<td>").append(orderItem.getProduct().getName()).append("</td>");
+            sb.append("<td>").append(orderItem.getSize().getNumber()).append("</td>");
+            sb.append("<td>").append(decimalFormat.format(orderItem.getProduct().getPrice())).append("</td>");
+            sb.append("<td>").append(orderItem.getQuantity()).append("</td>");
+            sb.append("<td>").append(decimalFormat.format(orderItem.getQuantity() * orderItem.getProduct().getPrice())).append("</td>");
+            sb.append("</tr>");
+        }
+        sb.append("<tr>");
+        sb.append("<td></td>");
+        sb.append("<td></td>");
+        sb.append("<td></td>");
+        sb.append("<td></td>");
+        sb.append("<td> Tổng tiền: ").append(decimalFormat.format(order.getTotalPrice())).append("</td>");
+        sb.append("</tr>");
+        sb.append("</table>");
+        // Thông tin địa chỉ, email, số điện thoại, ghi chú
+        sb.append("<h2>Thông tin đặt hàng:</h2>");
+        sb.append("<p><strong>Địa chỉ:</strong> ").append(order.getAddress()).append("</p>");
+        sb.append("<p><strong>Email:</strong> ").append(order.getCustomer().getEmail()).append("</p>");
+        sb.append("<p><strong>Số điện thoại:</strong> ").append(order.getCustomer().getPhone()).append("</p>");
+        sb.append("<p><strong>Ghi chú:</strong> ").append(order.getNote()).append("</p>");
+        sb.append("</body></html>");
+
+        return sb.toString();
     }
 
     @PostMapping("/delete-cart-item")

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -23,4 +24,18 @@ public class OrderService {
         orderItemRepository.saveAll(orderItem);
     }
 
+    public List<Order> findAll(){
+        return orderRepository.findAll();
+    }
+
+    public Optional<Order> findById(Integer id){
+        return orderRepository.findById(id);
+    }
+
+    public long countTotalOrder() {
+        return orderRepository.count();
+    }
+    public List<Order> findFiveLastOrder(){
+        return orderRepository.findTop5ByOrderByIdDesc();
+    }
 }

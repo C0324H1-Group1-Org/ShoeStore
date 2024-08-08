@@ -58,6 +58,7 @@ public class ProductService implements IProductService {
     public void saveAllProductSize(List<ProductSize> productSizes){
         productSizeRepository.saveAll(productSizes);
     }
+    public void saveProductSize(ProductSize productSize){productSizeRepository.save(productSize);}
 
     public CartDetail existByProductWhereCartId(Product product, Cart cart, Size size){
         return cartDetailRepository.findCartDetailByIdCartAndIdProductAndIdSize(cart,product,size);

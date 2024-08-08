@@ -2,12 +2,14 @@ package org.example.casestudymodule4shoestore.services.customer;
 
 import org.example.casestudymodule4shoestore.models.AppUser;
 import org.example.casestudymodule4shoestore.models.Customer;
+import org.example.casestudymodule4shoestore.models.Order;
 import org.example.casestudymodule4shoestore.repositories.customer.ICustomerRepo;
 import org.example.casestudymodule4shoestore.repositories.login.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Optional;
 
 @Validated
@@ -40,6 +42,12 @@ public class CustomerService implements ICustomerService {
         return customerRepo.findCustomerByEmail(username);
     }
 
+    public Long countTotalCustomer(){
+        return customerRepo.count();
+    }
 
 
+    public List<Customer> findFiveLastCustomer() {
+        return customerRepo.findTop5ByOrderByIdDesc();
+    }
 }
