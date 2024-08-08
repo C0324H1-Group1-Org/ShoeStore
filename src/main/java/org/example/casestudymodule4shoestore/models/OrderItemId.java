@@ -22,6 +22,9 @@ public class OrderItemId implements Serializable {
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
+    @Column(name = "size_id")
+    private Integer sizeId;
+
 
 
 }

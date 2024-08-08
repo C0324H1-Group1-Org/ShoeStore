@@ -1064,7 +1064,10 @@
             </div>
             <div class="details">
                 <div class="recentOrders">
-                    <a href="#" class="btn">Thêm mới</a>
+                    <a th:href="@{/admin/create-product}" class="btn">Thêm mới</a>
+                    <h4 style="margin: 10px 0">
+                        Tổng sản phẩm: [[${totalItems}]]
+                    </h4>
                     <table>
                         <thead>
                             <tr>
@@ -1120,7 +1123,7 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     <h4 class="modal-title" id="myModalLabel" th:text="${product.name}"></h4>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body" style="padding: 0 10%">
                                                     <table>
                                                         <thead>
                                                             <tr>
@@ -1148,22 +1151,49 @@
 
 
                                 <td>
-                                <a href="#" class="btn Pending"><span class="icon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></a>
-                                <a href="#" class="btn return"><span class="icon"><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                <a th:href="@{/admin/update-product/{id}(id=${product.id})}" class="btn Pending"><span class="icon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span></a>
+<!--                                <a href="#" class="btn return"><span class="icon"><i class="fa fa-trash" aria-hidden="true"></i></span></a>-->
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn return" data-toggle="modal" th:attr="data-target='#modalDelete'+${product.id}">
+                                        <span class="icon"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="'modalDelete'+ ${product.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="text-align: left;color: black">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Bạn có chắc muốn xóa sản phẩm này</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>ID sản phẩm: </h4>
+                                                    <p th:text="${product.id}"></p>
+                                                    <h4>Tên sản phẩm:</h4>
+                                                    <p th:text="${product.name}"></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form th:action="@{/admin/delete-product/{id}(id=${product.id})}" method="post">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+
+                                                        <input type="hidden" th:value="${product.id}">
+                                                        <button type="submit" class="btn btn-primary">Xóa</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <a href="#">&laquo;</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&raquo;</a>
+                        <a th:if="${currentPage > 1}" th:href="@{/admin/products/page/{id}(id=1)}">First</a>
+                        <a th:if="${currentPage > 1}" th:href="@{/admin/products/page/{id}(id=${currentPage  - 1})}">&laquo;</a>
+                        <a th:each="i: ${#numbers.sequence(1, totalPage)}" th:class="${currentPage == i} ? active : ''" th:href="${currentPage!=i} ?  ${'/admin/products/page/' + i} : ''">[[${i}]]</a>
+                        <a th:if="${currentPage < totalPage}" th:href="@{/admin/products/page/{id}(id=${currentPage  + 1})}">&raquo;</a>
+                        <a th:if="${currentPage < totalPage}" th:href="@{/admin/products/page/{id}(id=${totalPage})}">Last</a>
                       </div>
                 </div>
             </div>

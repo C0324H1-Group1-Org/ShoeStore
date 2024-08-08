@@ -20,4 +20,7 @@ public class CartDetailId implements Serializable {
     @NotNull
     @Column(name = "id_product", nullable = false)
     private Integer idProduct;
+    @NotNull
+    @Column(name = "id_size",nullable = false)
+    private Integer idSize;
 }

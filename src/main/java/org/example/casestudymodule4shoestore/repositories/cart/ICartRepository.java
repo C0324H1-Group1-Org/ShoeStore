@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ICartRepository extends JpaRepository <Cart,Integer> {
-    Cart findByCustomerId (Integer customerId);
+    Cart findByCustomerId (Long customerId);
 }

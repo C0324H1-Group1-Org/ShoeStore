@@ -15,12 +15,12 @@ import java.util.Objects;
 @Embeddable
 public class ProductSizeId implements Serializable {
 
-    @NotNull
-    @Column(name = "id_product", nullable = false)
+
+    @Column(name = "id_product")
     private Integer idProduct;
 
-    @NotNull
-    @Column(name = "id_size", nullable = false)
+
+    @Column(name = "id_size")
     private Integer idSize;
 
 
