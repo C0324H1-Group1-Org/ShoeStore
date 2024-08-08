@@ -1,8 +1,9 @@
 package org.example.casestudymodule4shoestore.services.products;
 
 import org.example.casestudymodule4shoestore.dtos.product.CartDTO;
-import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.repositories.products.IProductRepository;
+import org.example.casestudymodule4shoestore.models.*;
+import org.example.casestudymodule4shoestore.repositories.cart.ICartDetailRepository;
+import org.example.casestudymodule4shoestore.repositories.products.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,7 +59,7 @@ public class ProductService implements IProductService {
         productSizeRepository.saveAll(productSizes);
     }
 
-    public CartDetail existByProductWhereCartId(Product product, Cart cart,Size size){
+    public CartDetail existByProductWhereCartId(Product product, Cart cart, Size size){
         return cartDetailRepository.findCartDetailByIdCartAndIdProductAndIdSize(cart,product,size);
     }
 
