@@ -18,7 +18,17 @@
     <link rel="stylesheet" href="../css/aos.css">
 
     <link rel="stylesheet" href="../css/style.css">
+    <script>
+      function formatCurrency(amount) {
+        const formatter = new Intl.NumberFormat('vi-VN', {
+          style: 'currency',
+          currency: 'VND',
+          minimumFractionDigits: 0
 
+        });
+        return formatter.format(amount);
+      }
+    </script>
   </head>
   <body>
   
@@ -203,11 +213,13 @@
                       <img th:src="${product.image}" alt="Image placeholder" class="img-fluid">
                     </figure>
                     <div class="block-4-text p-4">
-                      <h4><p class="mb-0 name-product" th:text="${product.name}"> </p></h4>
-                      <a th:href="@{/detail/{id}(id=${product.id})}">Chi tiết sản phẩm</a>
+                      <h4><a th:href="@{/detail/{id}(id=${product.id})}"><p class="mb-0" th:text="${product.name}"> </p></a></h4>
+                      <p class="text-primary font-weight-bold price" th:data-price="${product.price}"></p>
                     </div>
                   </div>
                 </div>
+
+
             </div>
           </div>
         </div>
@@ -248,6 +260,13 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.price').forEach(priceElement => {
+        const price = parseFloat(priceElement.getAttribute('data-price'));
+        priceElement.textContent = formatCurrency(price);
+      });
+    });
+  </script>
   </body>
 </html>
