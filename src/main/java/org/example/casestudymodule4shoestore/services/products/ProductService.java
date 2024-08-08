@@ -90,7 +90,12 @@ public class ProductService implements IProductService {
     @Override
     public Page<Product> findProductByCategory(Integer id,Integer pageNo) {
         Pageable pageable = PageRequest.of(pageNo-1, 9);
-        return productRepository.findAllByCat_Id(id,pageable);
+        return productRepository.findAllByCat_Id(id, pageable);
+    }
+
+    @Override
+    public List<Product> findProductByCategory(Integer id) {
+        return productRepository.findAllByCat_Id(id);
     }
 
     @Override

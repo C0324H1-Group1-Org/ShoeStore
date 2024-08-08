@@ -36,7 +36,7 @@
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-0"><a href="index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
                         class="text-black">Chi tiết sản phẩm</strong></div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <div class="col-md-6">
                         <h2 class="text-black mb-5" th:field="*{name}" th:text="${product.name}"></h2>
                         <input type="hidden" th:field="*{name}">
-                        <p id="price" class="text-primary h4 mb-5" th:field="*{price}" th:data-price="${product.price}"></p>
+                        <p class="text-primary h4 mb-5 price" th:field="*{price}" th:data-price="${product.price}"></p>
                         <input type="hidden" th:field="*{price}">
                         <div class="mb-3 ">
                             <div class="size-selector">
@@ -98,72 +98,72 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-7 site-section-heading text-center pt-4">
-                    <h2>Featured Products</h2>
+                    <h2>Sản phẩm liên quan</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="nonloop-block-3 owl-carousel">
-                        <div class="item">
+
+                        <div class="item" th:each="productCat,s: ${productInCategory}">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">
+                                    <img th:src="${productCat.image}" alt="Image placeholder" class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
-                                    <h3><a href="#">Tank Top</a></h3>
-                                    <p class="mb-0">Finding perfect t-shirt</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
+                                    <h3><a th:href="@{/detail/{id}(id=${productCat.id})}"><p class="mb-0" th:text="${productCat.name}"></p></a></h3>
+                                    <p class="text-primary font-weight-bold price" th:data-price="${productCat.price}"></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Polo Shirt</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="item">-->
+<!--                            <div class="block-4 text-center">-->
+<!--                                <figure class="block-4-image">-->
+<!--                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">-->
+<!--                                </figure>-->
+<!--                                <div class="block-4-text p-4">-->
+<!--                                    <h3><a href="#">Corater</a></h3>-->
+<!--                                    <p class="mb-0">Finding perfect products</p>-->
+<!--                                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="item">-->
+<!--                            <div class="block-4 text-center">-->
+<!--                                <figure class="block-4-image">-->
+<!--                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">-->
+<!--                                </figure>-->
+<!--                                <div class="block-4-text p-4">-->
+<!--                                    <h3><a href="#">Polo Shirt</a></h3>-->
+<!--                                    <p class="mb-0">Finding perfect products</p>-->
+<!--                                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="item">-->
+<!--                            <div class="block-4 text-center">-->
+<!--                                <figure class="block-4-image">-->
+<!--                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">-->
+<!--                                </figure>-->
+<!--                                <div class="block-4-text p-4">-->
+<!--                                    <h3><a href="#">T-Shirt Mockup</a></h3>-->
+<!--                                    <p class="mb-0">Finding perfect products</p>-->
+<!--                                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="item">-->
+<!--                            <div class="block-4 text-center">-->
+<!--                                <figure class="block-4-image">-->
+<!--                                    <img th:src="@{/images/shoe_1.jpg}" alt="Image placeholder" class="img-fluid">-->
+<!--                                </figure>-->
+<!--                                <div class="block-4-text p-4">-->
+<!--                                    <h3><a href="#">Corater</a></h3>-->
+<!--                                    <p class="mb-0">Finding perfect products</p>-->
+<!--                                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -184,9 +184,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const priceElement = document.getElementById('price');
-        const price = parseFloat(priceElement.getAttribute('data-price'));
-        priceElement.textContent = formatCurrency(price);
+        document.querySelectorAll('.price').forEach(priceElement => {
+            const price = parseFloat(priceElement.getAttribute('data-price'));
+            priceElement.textContent = formatCurrency(price);
+        });
     });
 </script>
 </body>

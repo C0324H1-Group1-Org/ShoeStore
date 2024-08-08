@@ -17,6 +17,8 @@ public interface IProductService extends IGenerateService<Product> {
 
     Page<Product> findProductByCategory(Integer id,Integer pageNo);
 
+    List<Product> findProductByCategory(Integer id);
+
     Page<Product> findPaginated(int pageNo,int pageSize);
 
     Page<Product> getAll(Integer pageNo);
