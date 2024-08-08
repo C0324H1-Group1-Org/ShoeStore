@@ -24,4 +24,10 @@ public class CategoryService implements ICategoryService {
     public Optional<Product> findProductById(Long id) {
         return Optional.empty();
     }
+
+
+    @Override
+    public List<Integer> findTotalProductInCategory(Integer id) {
+        return categoryRepository.findTotalProductInCategory(id);
+    }
 }

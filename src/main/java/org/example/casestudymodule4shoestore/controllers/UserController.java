@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class UserController {
 
     @GetMapping("/shop")
     public String shop(Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
+        model.addAttribute("navbar", "shop");
         Page<Product> products = productService.getAll(pageNo);
         model.addAttribute("products", products);
         List<Category> categories = categoryService.findAll();
@@ -95,7 +97,7 @@ public class UserController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "name", required = false) String name, Model model) {
-        model.addAttribute("navbar", "search");
+        model.addAttribute("navbar", "shop");
         List<Product> products = productService.findProductByName(name);
         model.addAttribute("products", products);
         List<Category> categories = categoryService.findAll();
@@ -104,12 +106,13 @@ public class UserController {
     }
 
     @GetMapping("/category{id}")
-    public String shopCategory(@PathVariable Integer id, Model model){
-        model.addAttribute("navbar", "category");
+    public String shopCategory(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
+        model.addAttribute("navbar", "shop");
         List<Product> products = (List<Product>) productService.findProductByCategory(id);
         model.addAttribute("products", products);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+
         return "shop";
     }
 
