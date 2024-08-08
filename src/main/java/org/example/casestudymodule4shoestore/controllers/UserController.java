@@ -1,6 +1,8 @@
 package org.example.casestudymodule4shoestore.controllers;
 
+import org.example.casestudymodule4shoestore.models.Category;
 import org.example.casestudymodule4shoestore.models.Product;
+import org.example.casestudymodule4shoestore.services.category.ICategoryService;
 import org.example.casestudymodule4shoestore.services.products.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
 
     @GetMapping
     public String home(Model model) {
@@ -39,6 +44,8 @@ public class UserController {
     public String shop(Model model) {
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         return "shop";
     }
 
@@ -73,6 +80,8 @@ public class UserController {
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
+            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
+            model.addAttribute("productInCategory", productInCategory);
         } else {
             return "error/404";
         }
@@ -84,6 +93,8 @@ public class UserController {
         model.addAttribute("navbar", "search");
         List<Product> products = productService.findProductByName(name);
         model.addAttribute("products", products);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         return "/shop";
     }
 
@@ -92,7 +103,9 @@ public class UserController {
         model.addAttribute("navbar", "category");
         List<Product> products = (List<Product>) productService.findProductByCategory(id);
         model.addAttribute("products", products);
-        return "/shop";
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
+        return "shop";
     }
 
 }
