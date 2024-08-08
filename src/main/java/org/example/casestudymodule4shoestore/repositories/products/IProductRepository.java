@@ -21,7 +21,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByCat_Id(Integer id);
 
-    @Query(nativeQuery = true, value = "select p.*  from products as p where p.name like :keyword")
+    @Query(nativeQuery = true, value = "select p.*  from products as p where p.name like :keyword", countQuery = "SELECT COUNT(p.id) FROM products p WHERE p.name LIKE :keyword")
     Page<Product> findAllByNameContaining(@Param("keyword") String keyword, Pageable pageNo);
 
     // Đếm số lượng product_id

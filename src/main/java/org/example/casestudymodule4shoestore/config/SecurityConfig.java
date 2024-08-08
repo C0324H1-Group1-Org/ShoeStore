@@ -42,6 +42,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
+                .authorizeRequests()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
+                .and()
 //                .authorizeHttpRequests((authorizeHttpRequests) ->
 //                        authorizeHttpRequests
 //                                .requestMatchers("/shop", "/login", "/about", "/register", "/index", "/cart", "/checkout", "/logoutSuccessful").permitAll()
@@ -53,6 +57,7 @@ public class SecurityConfig {
 //                                .anyRequest().permitAll()
 //                )
 //               Cấu hình lại form login
+
                 .formLogin((formLogin) ->
                         formLogin
                                 .usernameParameter("username")
@@ -60,12 +65,23 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .failureUrl("/login?error=true")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/shop",true))
+                                .defaultSuccessUrl("/",true)
+                                .successHandler((request, response, authentication) -> {
+                                    // Chuyển hướng dựa trên vai trò
+                                    if (authentication.getAuthorities().stream()
+                                            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+                                        response.sendRedirect("/admin");
+                                    } else {
+                                        response.sendRedirect("/");
+                                    }
+                                })
+                )
+
                 .logout((logout) ->
                         logout.deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(false)
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/shop"))
+                                .logoutSuccessUrl("/"))
                 .rememberMe((remember) ->
                         remember.rememberMeParameter("remember-me")
                                 .tokenValiditySeconds(60 * 60 * 24 * 365))

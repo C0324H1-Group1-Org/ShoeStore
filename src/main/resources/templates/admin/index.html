@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,61 +12,7 @@
 
 <body>
     <div class="container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa fa-btc" aria-hidden="true"></i>
-                        </span>
-                        <span class="title">
-                            <h2>BURNING KEY</h2>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-                        <span class="title">Dashboard</span>
-                    </a>
-                </li>
-                <li><a href="admin/products">
-                    <span class="icon"><i class="fa fa-product-hunt" aria-hidden="true"></i></span>
-                    <span class="title">Product</span>
-                </a>
-                </li>
-                <li><a href="#">
-                        <!-- <span class="icon"><i class="fa fa-comment-o" aria-hidden="true"></i></span> -->
-                        <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                        <span class="title">Orders</span>
-                    </a>
-                </li>
-                <li><a href="#">
-                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
-                    <span class="title">User</span>
-                </a>
-                </li>
-                <!-- <li><a href="#">
-                        <span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                        <span class="title">Help</span>
-                    </a>
-                </li>
-                <li><a href="#">
-                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-                        <span class="title">Settings</span>
-                    </a>
-                </li>
-                <li><a href="#">
-                        <span class="icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                        <span class="title">Password</span>
-                    </a>
-                </li>
-                <li><a href="#">
-                        <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-                        <span class="title">Sign out</span>
-                    </a>
-                </li> -->
-            </ul>
-        </div>
+        <div th:replace="admin/layout_nav_admin.html"></div>
         <div class="main">
             <div class="topbar">
                 <div class="toggle" onclick="toggleMenu()"></div>
@@ -78,7 +24,7 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,042</div>
+                        <div class="numbers" th:text="${totalCustomer}"></div>
                         <div class="cardName">Tổng số người dùng</div>
                     </div>
                     <div class="iconBox">
@@ -87,7 +33,7 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
+                        <div class="numbers" th:text="${totalOrder}"></div>
                         <div class="cardName">Tổng số đơn hàng</div>
                     </div>
                     <div class="iconBox">
@@ -117,7 +63,7 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Đơn đặt hàng mới</h2>
-                        <a href="#" class="btn">Xem tất cả</a>
+                        <a th:href="@{admin/orders}" class="btn">Xem tất cả</a>
                     </div>
                     <table>
                         <thead>
@@ -129,36 +75,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#" class="btn">1900</a></td>
-                                <td>$1200</td>
-                                <td>02-08-2024 10:00:00 AM</td>
-                                <td><span class="status delivered"> Đã giao hàng</span></td>
+                            <tr th:each="order: ${orders}">
+                                <td><a href="#" class="btn" th:text="${order.id}"></a></td>
+                                <td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')}"></td>
+                                <td th:text="${order.orderDate}"></td>
+                                <td><span  th:if="${order.status.name() == 'PENDING'}" th:class="'status Pending'" th:text="${order.status.status}"></span>
+                                    <span  th:if="${order.status.name() == 'INPROGRESS'}" th:class="'status inprogress'" th:text="${order.status.status}"></span>
+                                    <span  th:if="${order.status.name() == 'DELIVERED'}" th:class="'status delivered'" th:text="${order.status.status}"></span>
+                                    <span  th:if="${order.status.name() == 'RETURN'}" th:class="'status return'" th:text="${order.status.status}"></span>
+
+                                </td>
                             </tr>
-                            <tr>
-                                <td><a href="#" class="btn">1901</a></td>
-                                <td>$110</td>
-                                <td>02-08-2024 10:00:00 AM</td>
-                                <td><span class="status Pending"> Đang chờ</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="btn">1902</a></td>
-                                <td>$620</td>
-                                <td>02-08-2024 10:00:00 AM</td>
-                                <td><span class="status return"> Hoàn trả</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="btn">1903</a></td>
-                                <td>$6000</td>
-                                <td>02-08-2024 10:00:00 AM</td>
-                                <td><span class="status inprogress"> Đang xử lý</span></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="btn">1904</a></td>
-                                <td>$680</td>
-                                <td>02-08-2024 10:00:00 AM</td>
-                                <td><span class="status delivered"> Đã giao hàng</span></td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -167,9 +95,8 @@
                         <h2>Người dùng mới</h2>
                     </div>
                     <table>
-                        <tr>
-                            <td width="60px"><div class="imgBx"><img src="../../../../../../../Downloads/Responsive-Admin-Dashboard-Without-External-Lib-main/images/01.jpg" alt=""></div></td>
-                            <td><h4>Dũng Lại Lập Trình<br><span>0709999999</span></h4></td>
+                        <tr th:each="customer : ${customers}">
+                            <td><h4>[[${customer.firstName + ' ' + customer.lastName}]]<br><span th:text="${customer.phone}"></span></h4></td>
                         </tr>
                         
                     </table>
