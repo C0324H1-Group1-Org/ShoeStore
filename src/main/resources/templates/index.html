@@ -204,11 +204,11 @@
             <h2>Sản Phẩm Nổi Bật</h2>
           </div>
         </div>
-        <div class="row">
+        <div class="row" >
           <div class="col-md-12">
             <div class="nonloop-block-3 owl-carousel">
-                <div class="item" th:each="product,s: ${products}">
-                  <div class="block-4 text-center">
+                <div class="item" th:each="product,s: ${products}" >
+                  <div class="block-4 text-center" style="height: 600px">
                     <figure class="block-4-image">
                       <img th:src="${product.image}" alt="Image placeholder" class="img-fluid">
                     </figure>

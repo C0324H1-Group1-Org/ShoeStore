@@ -1,6 +1,8 @@
 package org.example.casestudymodule4shoestore.repositories.products;
 import jakarta.transaction.Transactional;
 import org.example.casestudymodule4shoestore.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,15 +10,18 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
-    @Query( nativeQuery = true, value = "select p.*  from products as p order by p.price desc")
+
+    @Query(nativeQuery = true, value = "select p.*  from products as p order by p.price desc")
     List<Product> sortProductsByPrice();
 
-    List<Product> findAllByCat_Id(Integer id);
+    Page<Product> findAllByCat_Id(Integer id, Pageable pageable);
 
-    @Query( nativeQuery = true, value = "select p.*  from products as p where p.name like :keyword")
-    List<Product> findAllByNameContaining(@Param("keyword")String keyword);
+    @Query(nativeQuery = true, value = "select p.*  from products as p where p.name like :keyword")
+    Page<Product> findAllByNameContaining(@Param("keyword") String keyword, Pageable pageNo);
+
     // Đếm số lượng product_id
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM cart_detail WHERE product_id = :productId")
     int countProductInCart(@Param("productId") Integer productId);

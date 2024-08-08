@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,10 +69,6 @@ public class UserController {
         return "contact";
     }
 
-    @GetMapping("/checkout")
-    public String checkout() {
-        return "checkout";
-    }
 
     @GetMapping("/thankyou")
     public String thankYou() {
@@ -87,8 +82,8 @@ public class UserController {
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
-            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
-            model.addAttribute("productInCategory", productInCategory);
+//            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
+//            model.addAttribute("productInCategory", productInCategory);
         } else {
             return "error/404";
         }
@@ -96,24 +91,25 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "name", required = false) String name, Model model) {
+    public String search(@RequestParam(value = "name", required = false) String name, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
         model.addAttribute("navbar", "shop");
-        List<Product> products = productService.findProductByName(name);
+        Page<Product> products = productService.findProductByName(name,pageNo);
         model.addAttribute("products", products);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         return "/shop";
     }
 
     @GetMapping("/category{id}")
-    public String shopCategory(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes){
+    public String shopCategory(@PathVariable Integer id, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo){
         model.addAttribute("navbar", "shop");
-        List<Product> products = (List<Product>) productService.findProductByCategory(id);
+        Page<Product> products = productService.findProductByCategory(id,pageNo);
         model.addAttribute("products", products);
-        List<Category> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
-
-        return "shop";
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
+        return "/shop";
     }
 
 }

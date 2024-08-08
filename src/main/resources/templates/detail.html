@@ -59,7 +59,7 @@
                                 <h4>Chọn kích thước</h4>
                                 <div class="sizes" >
                                     <div th:each="size, status : ${product.productSizes}">
-                                        <input type="radio" th:id="'size' + ${status.count}" name="size" th:value="${size.idSize.number}">
+                                        <input type="radio" th:id="'size' + ${status.count}" name="size" th:value="${size.idSize.id}">
                                         <label th:for="'size' + ${status.count}" th:text="${size.idSize.number}"></label>
                                     </div>
                                 </div>
