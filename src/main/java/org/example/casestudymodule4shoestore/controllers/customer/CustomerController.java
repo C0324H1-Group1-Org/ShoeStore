@@ -68,10 +68,8 @@ public class CustomerController {
             model.addAttribute("checkPassword", "Mật khẩu không khớp!");
             return "login-register/register";
         }
-
 //      mã hoá password
         String encodedPassword = passwordEncoder.encode(customerDto.getPassword());
-
 //      lưu thông tin đăng nhập user
         AppUser appUser = new AppUser();
         appUser.setUserName(customerDto.getEmail());
@@ -79,8 +77,8 @@ public class CustomerController {
         appUser.setEnabled(customerDto.isEnabled());
         customerService.saveAccountCustomer(appUser);
         // xác nhận role user
-        userRoleService.save(appUser, appRoleService.findByRoleName("ROLE_USER"));
         userService.registerUser(appUser);
+        userRoleService.save(appUser, appRoleService.findByRoleName("ROLE_USER"));
         Customer customer = new Customer();
         // lưu thông tin customer
         customer.setFirstName(customerDto.getFirstName());
