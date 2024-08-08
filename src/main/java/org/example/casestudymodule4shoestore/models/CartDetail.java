@@ -24,7 +24,10 @@ public class CartDetail {
     @JoinColumn(name = "product_id")
     private Product idProduct;
 
-    private int size;
+    @MapsId("idSize")
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private Size idSize;
     private int quantity;
 
 }

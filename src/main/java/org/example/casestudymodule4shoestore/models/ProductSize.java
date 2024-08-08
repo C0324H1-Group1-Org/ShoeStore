@@ -13,8 +13,8 @@ public class ProductSize {
     private ProductSizeId id;
 
     @MapsId("idProduct")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_product", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product")
     private Product idProduct;
 
     @MapsId("idSize")
