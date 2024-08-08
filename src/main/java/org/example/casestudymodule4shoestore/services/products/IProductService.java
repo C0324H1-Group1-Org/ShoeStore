@@ -13,9 +13,9 @@ public interface IProductService extends IGenerateService<Product> {
 
     List<Product> sortProductsByPrice();
 
-    List<Product> findProductByName(String keyword);
+    Page<Product> findProductByName(String keyword,Integer pageNo);
 
-    Iterable<Product> findProductByCategory(Integer id);
+    Page<Product> findProductByCategory(Integer id,Integer pageNo);
 
     Page<Product> findPaginated(int pageNo,int pageSize);
 

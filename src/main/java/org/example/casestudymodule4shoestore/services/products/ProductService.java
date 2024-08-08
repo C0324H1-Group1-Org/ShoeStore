@@ -88,8 +88,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Iterable<Product> findProductByCategory(Integer id) {
-        return productRepository.findAllByCat_Id(id);
+    public Page<Product> findProductByCategory(Integer id,Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
+        return productRepository.findAllByCat_Id(id,pageable);
     }
 
     @Override
@@ -106,8 +107,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findProductByName(String name) {
-        return productRepository.findAllByNameContaining("%" + name + "%");
+    public Page<Product> findProductByName(String name,Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
+        return productRepository.findAllByNameContaining("%" + name + "%",pageable);
 
     }
 }

@@ -81,18 +81,22 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "name", required = false) String name, Model model) {
+    public String search(@RequestParam(value = "name", required = false) String name, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
         model.addAttribute("navbar", "search");
-        List<Product> products = productService.findProductByName(name);
+        Page<Product> products = productService.findProductByName(name,pageNo);
         model.addAttribute("products", products);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "/shop";
     }
 
     @GetMapping("/category{id}")
-    public String shopCategory(@PathVariable Integer id, Model model){
+    public String shopCategory(@PathVariable Integer id, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo){
         model.addAttribute("navbar", "category");
-        List<Product> products = (List<Product>) productService.findProductByCategory(id);
+        Page<Product> products = productService.findProductByCategory(id,pageNo);
         model.addAttribute("products", products);
+        model.addAttribute("totalPage", products.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "/shop";
     }
 
