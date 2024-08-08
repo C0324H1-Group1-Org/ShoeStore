@@ -19,6 +19,8 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAllByCat_Id(Integer id, Pageable pageable);
 
+    List<Product> findAllByCat_Id(Integer id);
+
     @Query(nativeQuery = true, value = "select p.*  from products as p where p.name like :keyword")
     Page<Product> findAllByNameContaining(@Param("keyword") String keyword, Pageable pageNo);
 

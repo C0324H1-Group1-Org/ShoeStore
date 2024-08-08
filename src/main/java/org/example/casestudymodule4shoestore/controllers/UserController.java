@@ -77,13 +77,14 @@ public class UserController {
 
     @GetMapping("/detail/{id}")
     public String showProductDetail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("navbar", "shop");
         Optional<Product> product = productService.findProductById(id);
 
         if (product.isPresent()) {
             Product product1 = product.get();
             model.addAttribute("product", product1);
-//            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
-//            model.addAttribute("productInCategory", productInCategory);
+            Iterable<Product> productInCategory = productService.findProductByCategory(product1.getCat().getId());
+            model.addAttribute("productInCategory", productInCategory);
         } else {
             return "error/404";
         }
@@ -109,6 +110,8 @@ public class UserController {
         model.addAttribute("products", products);
         model.addAttribute("totalPage", products.getTotalPages());
         model.addAttribute("currentPage", pageNo);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         return "/shop";
     }
 

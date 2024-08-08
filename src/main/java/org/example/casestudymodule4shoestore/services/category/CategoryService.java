@@ -2,7 +2,7 @@ package org.example.casestudymodule4shoestore.services.category;
 
 import org.example.casestudymodule4shoestore.models.Category;
 import org.example.casestudymodule4shoestore.models.Product;
-import org.example.casestudymodule4shoestore.repositories.category.ICategoryRepository;
+import org.example.casestudymodule4shoestore.repositories.products.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +23,5 @@ public class CategoryService implements ICategoryService {
     @Override
     public Optional<Product> findProductById(Long id) {
         return Optional.empty();
-    }
-
-
-    @Override
-    public List<Integer> findTotalProductInCategory(Integer id) {
-        return categoryRepository.findTotalProductInCategory(id);
     }
 }
