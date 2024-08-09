@@ -59,7 +59,7 @@
                                 <h4>Chọn kích thước</h4>
                                 <div class="sizes" >
                                     <div th:each="size, status : ${product.productSizes}">
-                                        <input type="radio" th:id="'size' + ${status.count}" name="size" th:value="${size.idSize.id}">
+                                        <input type="radio" th:id="'size' + ${status.count}" name="size" th:value="${size.idSize.id}" required>
                                         <label th:for="'size' + ${status.count}" th:text="${size.idSize.number}"></label>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                     <div class="nonloop-block-3 owl-carousel">
 
                         <div class="item" th:each="productCat,s: ${productInCategory}">
-                            <div class="block-4 text-center">
+                            <div class="block-4 text-center" style="height: 520px">
                                 <figure class="block-4-image">
                                     <img th:src="${productCat.image}" alt="Image placeholder" class="img-fluid">
                                 </figure>

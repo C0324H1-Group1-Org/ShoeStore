@@ -52,6 +52,7 @@ public class UserController {
         model.addAttribute("categories", categories);
         model.addAttribute("totalPage", products.getTotalPages());
         model.addAttribute("currentPage", pageNo);
+        model.addAttribute("searchKeyword", "");
         return "shop";
     }
 
@@ -92,7 +93,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "name", required = false) String name, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
+    public String search(@RequestParam(value = "name", required = false, defaultValue = "") String name, Model model,@RequestParam(name="pageNo",defaultValue = "1")Integer pageNo) {
         model.addAttribute("navbar", "shop");
         Page<Product> products = productService.findProductByName(name,pageNo);
         model.addAttribute("products", products);
@@ -100,6 +101,8 @@ public class UserController {
         model.addAttribute("currentPage", pageNo);
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+        model.addAttribute("searchKeyword", name);
+
         return "/shop";
     }
 
