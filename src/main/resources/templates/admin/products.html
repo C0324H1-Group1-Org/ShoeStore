@@ -83,7 +83,7 @@
                                 <td th:text="${product.id}"></td>
                                 <td><img th:src="${product.image}" alt="" style="width:100px"></td>
                                 <td th:text="${product.name}" style="width:400px;padding: 0 10px" ></td>
-                                <td th:text="${product.price}"></td>
+                                <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
 <!--                                <td><a href="#" class="btn"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></a></td>-->
                                 <td style="color: black">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modal'+${product.id}"><span class="icon"><i class="fa fa-info-circle" aria-hidden="true"></i></span></button>

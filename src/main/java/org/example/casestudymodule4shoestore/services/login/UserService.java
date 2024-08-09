@@ -55,7 +55,7 @@ public class UserService implements IUserService {
                 ".footer a {color: #888; text-decoration: none;}" +
                 "</style></head><body>" +
                 "<div class=\"container\">" +
-                "<div class=\"header\"><img src=\"logo.png\" alt=\"Logo\"></div>" +
+                "<div class=\"header\"></div>" +
                 "<div class=\"content\">" +
                 "<h1>Xác thực Email</h1>" +
                 "<p>Chào " + user.getUserName() + ",</p>" +
@@ -63,14 +63,7 @@ public class UserService implements IUserService {
                 "<a href=\"" + confirmationUrl + "\" class=\"button\">Xác minh địa chỉ email của tôi</a>" +
                 "</div>" +
                 "<div class=\"footer\">" +
-                "<p>800 Broadway Suit 1500 New York, NY 000423, Vietnam</p>" +
-                "<p>" +
-                "<a href=\"#\"><img src=\"facebook.png\" alt=\"Facebook\"></a>" +
-                "<a href=\"#\"><img src=\"snapchat.png\" alt=\"Snapchat\"></a>" +
-                "<a href=\"#\"><img src=\"linkedin.png\" alt=\"LinkedIn\"></a>" +
-                "<a href=\"#\"><img src=\"instagram.png\" alt=\"Instagram\"></a>" +
-                "</p>" +
-                "<p><a href=\"#\">Privacy Policy</a> | <a href=\"#\">Contact Details</a></p>" +
+                "<p>Nhà số 23, Lô TT-01, Khu đô thị MonCity, P. Hàm Nghi, Hà Nội</p>" +
                 "</div>" +
                 "</div></body></html>";
         emailService.sendEmail(user.getUserName(), subject, message);

@@ -107,11 +107,11 @@
                     <table>
                         <thead>
                         <tr>
-                            <td>Ma don</td>
-                            <td>Ma khach hang</td>
-                            <td>Ngay dat</td>
-                            <td>Tong tien</td>
-                            <td>Status</td>
+                            <td>Mã đơn</td>
+                            <td>Mã khách hàng</td>
+                            <td>Ngày đặt</td>
+                            <td>Tổng tiền</td>
+                            <td>Trạng thái</td>
                             <td></td>
                         </tr>
                         </thead>
@@ -201,7 +201,7 @@
 
 
                                                 <div class="modal-body">
-                                                    <h4 >Trạng thai don hang</h4>
+                                                    <h4 >Trạng thái đơn hàng</h4>
                                                     <select name="orderUpdate" style="width: 200px;height: 35px">
                                                         <option value="PENDING" th:selected="${item.status.name() == 'PENDING'} ? 'selected' ">Chờ xác nhận</option>
                                                         <option value="INPROGRESS" th:selected="${item.status.name() == 'INPROGRESS'} ? 'selected' ">Đang giao hàng</option>
