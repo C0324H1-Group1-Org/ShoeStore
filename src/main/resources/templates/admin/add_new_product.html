@@ -120,6 +120,7 @@
                         <select name="brand" id="" th:field="*{brand}">
                             <option th:value="${brand.id}" th:text="${brand.name}" th:each="brand: ${brands}"></option>
                         </select>
+                    <input type="hidden" th:field="*{id}">
                     <input type="submit" value="Lưu">
 
                 </div>
